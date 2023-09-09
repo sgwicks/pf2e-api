@@ -15,6 +15,9 @@ class CreateCharacterClassesTable extends Migration
     {
         Schema::create('character_classes', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->string('key_ability')->default('strength,dexterity,constitution,intelligence,wisdom,charisma');
+            $table->integer('hit_points')->default(8);
             $table->timestamps();
         });
     }

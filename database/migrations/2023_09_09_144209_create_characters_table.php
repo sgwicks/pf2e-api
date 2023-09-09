@@ -15,6 +15,21 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->string('ancestry')->nullable();
+            $table->string('heritage')->nullable();
+            $table->string('background')->nullable();
+            $table->string('size')->nullable();
+            $table->string('alignment')->nullable();
+            $table->string('traits')->nullable();
+            $table->string('deity')->nullable();
+            $table->integer('strength')->default(10);
+            $table->integer('dexterity')->default(10);
+            $table->integer('constitution')->default(10);
+            $table->integer('intelligence')->default(10);
+            $table->integer('wisdom')->default(10);
+            $table->integer('charisma')->default(10);
+            $table->integer('level')->default(1);
             $table->timestamps();
         });
     }

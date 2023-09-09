@@ -15,6 +15,9 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->integer('hardness')->default(0);
+            $table->integer('max_hp')->default(0);
+            $table->integer('break_threshold')->default(0);
             $table->timestamps();
         });
     }

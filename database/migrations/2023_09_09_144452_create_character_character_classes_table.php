@@ -15,6 +15,11 @@ class CreateCharacterCharacterClassesTable extends Migration
     {
         Schema::create('character_character_classes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('character_id');
+            $table->foreign('character_id')->on('characters')->references('id')->cascadeOnDelete();
+            $table->string('class_name')->foreignId();
+            $table->foreign('class_name')->on('character_classes')->references('name')->cascadeOnDelete();
+            $table->integer('level')->default(1);
             $table->timestamps();
         });
     }

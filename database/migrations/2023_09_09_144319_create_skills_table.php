@@ -14,7 +14,9 @@ class CreateSkillsTable extends Migration
     public function up()
     {
         Schema::create('skills', function (Blueprint $table) {
-            $table->id();
+            $table->string('name')->primary();
+            $table->string('attribute')->default('strength');
+            $table->boolean('armour')->default(false);
             $table->timestamps();
         });
     }

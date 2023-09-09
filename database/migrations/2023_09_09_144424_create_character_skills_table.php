@@ -15,6 +15,12 @@ class CreateCharacterSkillsTable extends Migration
     {
         Schema::create('character_skills', function (Blueprint $table) {
             $table->id();
+            $table->integer('proficiency');
+            $table->integer('item');
+            $table->foreignId('character_id');
+            $table->foreign('character_id')->on('characters')->references('id')->cascadeOnDelete();
+            $table->string('skill_name')->foreignId();
+            $table->foreign('skill_name')->on('skills')->references('name')->cascadeOnDelete();
             $table->timestamps();
         });
     }
