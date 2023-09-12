@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Character;
+use App\Models\Feat;
+use Database\Factories\Helpers\FactoryHelper;
 use Illuminate\Database\Seeder;
 
 class CharacterFeatSeeder extends Seeder
@@ -11,8 +14,8 @@ class CharacterFeatSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Character $character)
     {
-        //
+        $character->feats()->create([FactoryHelper::getRandomModelId(Feat::class)]);
     }
 }

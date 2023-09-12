@@ -30,6 +30,8 @@ class CreateCharactersTable extends Migration
             $table->integer('wisdom')->default(10);
             $table->integer('charisma')->default(10);
             $table->integer('level')->default(1);
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

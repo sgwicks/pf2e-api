@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Feat;
+use App\Models\User;
 use Database\Seeders\Traits\ForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Seeder;
 
-class FeatSeeder extends Seeder
+class UserSeeder extends Seeder
 {
-    use TruncateTable, ForeignKeys;
+    use ForeignKeys, TruncateTable;
     /**
      * Run the database seeds.
      *
@@ -17,9 +17,7 @@ class FeatSeeder extends Seeder
      */
     public function run()
     {
-        $this->truncate('feats');
-
-        Feat::factory(5)->create();
-
+        $this->truncate('users');
+        User::factory(10)->create();
     }
 }

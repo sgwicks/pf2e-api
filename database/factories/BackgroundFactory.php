@@ -14,7 +14,8 @@ class BackgroundFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->slug(),
+            'description' => $this->faker->paragraph()
         ];
     }
 }

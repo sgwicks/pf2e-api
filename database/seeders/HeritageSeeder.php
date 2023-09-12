@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Heritage;
 use Illuminate\Database\Seeder;
 
 class HeritageSeeder extends Seeder
@@ -13,6 +14,6 @@ class HeritageSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Heritage::factory(5)->create();
     }
 }

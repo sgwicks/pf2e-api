@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Background;
 use Illuminate\Database\Seeder;
 
 class BackgroundSeeder extends Seeder
@@ -13,6 +14,6 @@ class BackgroundSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Background::factory(5)->create();
     }
 }

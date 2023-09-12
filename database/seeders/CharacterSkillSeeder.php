@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Character;
+use App\Models\Skill;
+use Database\Factories\Helpers\FactoryHelper;
 use Illuminate\Database\Seeder;
 
 class CharacterSkillSeeder extends Seeder
@@ -11,8 +14,8 @@ class CharacterSkillSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Character $character)
     {
-        //
+        $character->skills()->sync(FactoryHelper::getRandomModelId(Skill::class));
     }
 }

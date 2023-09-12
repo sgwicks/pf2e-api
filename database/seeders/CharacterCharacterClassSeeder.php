@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Character;
+use App\Models\CharacterClass;
+use Database\Factories\Helpers\FactoryHelper;
 use Illuminate\Database\Seeder;
 
 class CharacterCharacterClassSeeder extends Seeder
@@ -11,8 +14,8 @@ class CharacterCharacterClassSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Character $character)
     {
-        //
+        $character->characterClasses()->sync(FactoryHelper::getRandomModelId(CharacterClass::class));
     }
 }

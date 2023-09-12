@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Skill extends Model
 {
     use HasFactory;
+
+    /** @var array  */
+    protected $fillable = [
+        'name',
+        'attribute',
+        'armour'
+    ];
+
+    public function characterSkills()
+    {
+        return $this->hasMany(CharacterSkill::class, 'skill_name');
+    }
 }

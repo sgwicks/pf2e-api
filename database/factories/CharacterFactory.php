@@ -14,7 +14,8 @@ class CharacterFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'user_id' => 1
         ];
     }
 }
