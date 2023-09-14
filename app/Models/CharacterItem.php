@@ -22,6 +22,6 @@ class CharacterItem extends Model
 
     public function item()
     {
-        return $this->belongsTo(Item::class, 'item_name');
+        return $this->belongsTo(Item::class, 'item_id');
     }
 }

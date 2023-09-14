@@ -26,15 +26,14 @@ class CharacterSeeder extends Seeder
         $characters->each(function(Character $character) {
             $user = User::find($character->id);
             $character->user()->associate($user);
-            $this->call([
+            $this->callWith([
                 CharacterFeatSeeder::class,
                 CharacterCharacterClassSeeder::class,
                 CharacterSkillSeeder::class,
                 CharacterActionSeeder::class,
                 CharacterItemSeeder::class
             ],
-                false,
-                [$character]
+                ['character' => $character]
             );
             $character->save();
         });

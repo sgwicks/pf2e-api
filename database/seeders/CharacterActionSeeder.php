@@ -17,7 +17,6 @@ class CharacterActionSeeder extends Seeder
      */
     public function run(Character $character)
     {
-        $action = CharacterAction::factory(1)->create();
-        $character->actions()->sync($action);
+        CharacterAction::factory(1)->for($character)->make();
     }
 }

@@ -19,7 +19,7 @@ class CreateCharacterSkillsTable extends Migration
             $table->integer('item');
             $table->foreignId('character_id');
             $table->foreign('character_id')->on('characters')->references('id')->cascadeOnDelete();
-            $table->string('skill_name')->foreignId();
+            $table->string('skill_name');
             $table->foreign('skill_name')->on('skills')->references('name')->cascadeOnDelete();
             $table->timestamps();
         });

@@ -26,4 +26,23 @@ class FactoryHelper
 
         return $id;
     }
+
+    /**
+     * This function will get a random id from the database
+     * @param string | HasFactory $model
+     * @return string $name
+     */
+
+    public static function getRandomModelName(string $model) {
+        // get model count
+        $count = $model::query()->count();
+
+        if ($count === 0) {
+            $name = $model::factory()->create();
+        } else {
+            $name = $model::pluck('name')->random();
+        }
+
+        return $name;
+    }
 }

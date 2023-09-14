@@ -10,7 +10,6 @@ class CharacterFeat extends Model
     use HasFactory;
 
     protected $guarded = [
-        'id',
         'created_at',
         'updated_at'
     ];
@@ -22,6 +21,6 @@ class CharacterFeat extends Model
 
     public function feat()
     {
-        $this->belongsTo(Feat::class, 'feat_name');
+        return $this->belongsTo(Feat::class, 'feat_name');
     }
 }

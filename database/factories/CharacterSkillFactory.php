@@ -14,7 +14,8 @@ class CharacterSkillFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'proficiency' => 2,
+            'item' => 0
         ];
     }
 }

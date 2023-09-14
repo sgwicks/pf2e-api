@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Character;
+use App\Models\CharacterCharacterClass;
 use App\Models\CharacterClass;
 use Database\Factories\Helpers\FactoryHelper;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,6 @@ class CharacterCharacterClassSeeder extends Seeder
      */
     public function run(Character $character)
     {
-        $character->characterClasses()->sync(FactoryHelper::getRandomModelId(CharacterClass::class));
+        CharacterCharacterClass::factory()->for($character)->state(['class_name' => FactoryHelper::getRandomModelName(CharacterClass::class)])->make();
     }
 }
