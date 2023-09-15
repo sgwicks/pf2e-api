@@ -15,6 +15,15 @@ class CharacterSkill extends Model
         'updated_at'
     ];
 
+//    protected $visible = [
+//        'skill_name',
+//        'proficiency',
+//        'item',
+//        'armour',
+//        'attribute',
+//        'skillInfo'
+//    ];
+
     public function character()
     {
         return $this->belongsTo(Character::class, 'character_id');
@@ -23,5 +32,12 @@ class CharacterSkill extends Model
     public function skill()
     {
         return $this->belongsTo(Skill::class, 'skill_name');
+    }
+
+    public function skillInfo()
+    {
+        dd('aaa');
+//        dd($this->getAttribute('skill'));
+//        return $this->getAttribute('skill');
     }
 }

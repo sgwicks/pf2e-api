@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
+use App\Http\Resources\CharacterResource;
 use App\Models\Character;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CharacterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $characters = Character::query()->get();
+
+        return CharacterResource::collection($characters);
     }
 
     /**

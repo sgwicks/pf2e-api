@@ -9,12 +9,12 @@ class Character extends Model
 {
     use HasFactory;
 
-//    /** @var array */
-//    protected $guarded = [
-//        'id',
-//        'created_at',
-//        'updated_at'
-//    ];
+    /** @var array */
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
 
     public function user()
     {

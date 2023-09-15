@@ -15,6 +15,11 @@ class CharacterCharacterClass extends Model
         'updated_at'
     ];
 
+    protected $visible = [
+        'class_name',
+        'level'
+    ];
+
     public function character()
     {
         return $this->belongsTo(Character::class, 'character_id');

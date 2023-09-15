@@ -9,8 +9,18 @@ class Skill extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'name';
+
+    public $incrementing = false;
+
     /** @var array  */
     protected $fillable = [
+        'name',
+        'attribute',
+        'armour'
+    ];
+
+    protected $visible = [
         'name',
         'attribute',
         'armour'
