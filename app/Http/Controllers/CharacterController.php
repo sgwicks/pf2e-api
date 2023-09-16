@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
 use App\Http\Resources\CharacterResource;
 use App\Models\Character;
+use App\Services\CharacterService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -24,24 +25,16 @@ class CharacterController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCharacterRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return CharacterResource
      */
-    public function store(StoreCharacterRequest $request)
+    public function store(StoreCharacterRequest $request, CharacterService $service)
     {
-        //
+        $character = $service->create($request);
+
+        return new CharacterResource($character);
     }
 
     /**

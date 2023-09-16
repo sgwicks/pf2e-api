@@ -15,6 +15,13 @@ class Item extends Model
         'updated_at'
     ];
 
+    protected $visible = [
+        "name",
+        "hardness",
+        "max_hp",
+        "break_threshold",
+    ];
+
     public function characterItems()
     {
         return $this->hasMany(CharacterItem::class, 'item_name');

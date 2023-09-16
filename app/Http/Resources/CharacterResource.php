@@ -35,21 +35,39 @@ class CharacterResource extends JsonResource
               'name' => $characterClass->class_name,
               'level' => $characterClass->level,
               'hit_points_per_level' => $characterClass->characterClass->hit_points,
-              'attribute_options' => $characterClass->characterClass->key_ability
+              'attribute_options' => $characterClass->characterClass->key_ability,
             ];
         });
 
         return [
           'id' => $this->id,
-          'user' => [
-              'id' => $this->user->id,
-              'name' => $this->user->name
+          'name' => $this->name,
+          'ancestry' => $this->ancestry,
+          'heritage' => $this->heritage,
+          'background' => $this->background,
+          'size' => $this->size,
+          'alignment' => $this->alignment,
+          'traits' => $this->traits,
+          'deity' => $this->deity,
+          'attributes' => [
+              'strength' => $this->strength,
+              'dexterity' => $this->dexterity,
+              'constitution' => $this->constitution,
+              'intelligence' => $this->intelligence,
+              'wisdom' => $this->wisdom,
+              'charisma' => $this->charisma
           ],
           'skills' => $combinedSkills,
           'feats' => $combinedFeats,
           'actions' => $this->actions,
           'character_classes' => $combinedCharacterClasses,
-          'items' => $this->items,
+          'items' => $this->items->map(function ($item) {
+              return $item->item;
+          }),
+          'user' => [
+              'id' => $this->user->id,
+             'name' => $this->user->name
+          ],
         ];
     }
 }

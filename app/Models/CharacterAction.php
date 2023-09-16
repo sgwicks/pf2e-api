@@ -15,6 +15,18 @@ class CharacterAction extends Model
         'updated_at'
     ];
 
+    protected $visible = [
+        'name',
+        'description',
+        'action',
+        'traits',
+        'source_book',
+        'source_page',
+        'is_spell',
+        'components',
+
+    ];
+
     public function character()
     {
         return $this->belongsTo(Character::class, 'character_id');
