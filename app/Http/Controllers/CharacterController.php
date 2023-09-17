@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCharacterRequest;
 use App\Http\Resources\CharacterResource;
 use App\Models\Character;
 use App\Services\CharacterService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -41,22 +42,11 @@ class CharacterController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @return CharacterResource
      */
     public function show(Character $character)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Character $character)
-    {
-        //
+        return new CharacterResource($character);
     }
 
     /**
@@ -64,21 +54,25 @@ class CharacterController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCharacterRequest  $request
      * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @return CharacterResource
      */
-    public function update(UpdateCharacterRequest $request, Character $character)
+    public function update(UpdateCharacterRequest $request, Character $character, CharacterService $service)
     {
-        //
+        $service->update($request, $character);
+
+        return new CharacterResource($character);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(Character $character)
+    public function destroy(Character $character, CharacterService $service)
     {
-        //
+        $service->destroy($character);
+
+        return new JsonResponse(null, 204);
     }
 }

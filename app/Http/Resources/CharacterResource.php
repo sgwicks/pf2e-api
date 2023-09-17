@@ -49,7 +49,7 @@ class CharacterResource extends JsonResource
           'alignment' => $this->alignment,
           'traits' => $this->traits,
           'deity' => $this->deity,
-          'attributes' => [
+          'abilities' => [
               'strength' => $this->strength,
               'dexterity' => $this->dexterity,
               'constitution' => $this->constitution,
