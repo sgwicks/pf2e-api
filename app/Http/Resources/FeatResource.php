@@ -13,6 +13,7 @@ class FeatResource extends JsonResource
     public function ToArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->nameTitleCase,
             'description' => $this->description
         ];

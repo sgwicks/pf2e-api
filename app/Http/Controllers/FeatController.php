@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\StoreFeatRequest;
 use App\Http\Requests\UpdateFeatRequest;
 use App\Http\Resources\FeatResource;
 use App\Models\Feat;
 use App\Services\FeatService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -17,7 +19,7 @@ class FeatController extends Controller
      *
      * @return ResourceCollection
      */
-    public function index(Request $request)
+    public function index(): ResourceCollection
     {
         $feats = Feat::query()->get();
 
@@ -27,10 +29,11 @@ class FeatController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFeatRequest  $request
+     * @param StoreFeatRequest $request
+     * @param FeatService $service
      * @return FeatResource
      */
-    public function store(StoreFeatRequest $request, FeatService $service)
+    public function store(StoreFeatRequest $request, FeatService $service): FeatResource
     {
         $feat = $service->create($request);
 
@@ -40,10 +43,10 @@ class FeatController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Feat  $feat
+     * @param  Feat  $feat
      * @return FeatResource
      */
-    public function show(Feat $feat)
+    public function show(Feat $feat): FeatResource
     {
         return new FeatResource($feat);
     }
@@ -51,11 +54,13 @@ class FeatController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFeatRequest  $request
-     * @param  \App\Models\Feat  $feat
+     * @param UpdateFeatRequest $request
+     * @param Feat $feat
+     * @param FeatService $service
      * @return FeatResource
+     * @throws GeneralJsonException
      */
-    public function update(UpdateFeatRequest $request, Feat $feat, FeatService $service)
+    public function update(UpdateFeatRequest $request, Feat $feat, FeatService $service): FeatResource
     {
         $service->update($request, $feat);
 
@@ -65,11 +70,15 @@ class FeatController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Feat  $feat
-     * @return FeatResource
+     * @param Feat  $feat
+     * @param FeatService $service
+     * @return JsonResponse
+     * @throws GeneralJsonException
      */
-    public function destroy(Feat $feat)
+    public function destroy(Feat $feat, FeatService $service): JsonResponse
     {
-        //
+        $service->destroy($feat);
+
+        return new JsonResponse(null, 204);
     }
 }
