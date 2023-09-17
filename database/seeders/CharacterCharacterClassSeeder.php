@@ -17,6 +17,6 @@ class CharacterCharacterClassSeeder extends Seeder
      */
     public function run(Character $character)
     {
-        CharacterCharacterClass::factory()->for($character)->state(['class_name' => FactoryHelper::getRandomModelName(CharacterClass::class)])->create();
+        CharacterCharacterClass::factory()->for($character)->state(['class_id' => FactoryHelper::getRandomModelId(CharacterClass::class)])->create();
     }
 }

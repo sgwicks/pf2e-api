@@ -9,10 +9,6 @@ class Skill extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'name';
-
-    public $incrementing = false;
-
     /** @var array  */
     protected $fillable = [
         'name',
@@ -28,6 +24,6 @@ class Skill extends Model
 
     public function characterSkills()
     {
-        return $this->hasMany(CharacterSkill::class, 'skill_name');
+        return $this->hasMany(CharacterSkill::class, 'skill_id');
     }
 }

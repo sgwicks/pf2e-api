@@ -9,10 +9,6 @@ class Feat extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'name';
-
-    public $incrementing = false;
-
     /** @var array */
     protected $fillable = [
         'name',
@@ -21,6 +17,16 @@ class Feat extends Model
 
     public function characterFeats()
     {
-        return $this->hasMany(CharacterFeat::class, 'feat_name');
+        return $this->hasMany(CharacterFeat::class, 'feat_id');
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower(str_replace(' ', '-', $value));
+    }
+
+    public function getNameTitleCaseAttribute()
+    {
+        return ucwords(str_replace('-', ' ', $this->name));
     }
 }

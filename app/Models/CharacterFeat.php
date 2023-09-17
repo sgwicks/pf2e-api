@@ -21,6 +21,6 @@ class CharacterFeat extends Model
 
     public function feat()
     {
-        return $this->belongsTo(Feat::class, 'feat_name');
+        return $this->belongsTo(Feat::class, 'feat_id');
     }
 }

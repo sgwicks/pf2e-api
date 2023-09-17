@@ -27,6 +27,6 @@ class CharacterCharacterClass extends Model
 
     public function characterClass()
     {
-        return $this->belongsTo(CharacterClass::class, 'class_name');
+        return $this->belongsTo(CharacterClass::class, 'class_id');
     }
 }

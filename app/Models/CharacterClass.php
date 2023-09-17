@@ -10,10 +10,6 @@ class CharacterClass extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'name';
-
-    public $incrementing = false;
-
     /**
      * Attributes which are mass assignable
      * @var array
@@ -30,7 +26,7 @@ class CharacterClass extends Model
 
     public function characterCharacterClass()
     {
-        return $this->hasMany(CharacterCharacterClass::class, 'class_name');
+        return $this->hasMany(CharacterCharacterClass::class, 'class_id');
     }
 
     public function getKeyAbilityAttribute($value)

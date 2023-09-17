@@ -17,8 +17,8 @@ class CreateCharacterFeatsTable extends Migration
             $table->id();
             $table->foreignId('character_id');
             $table->foreign('character_id')->on('characters')->references('id')->cascadeOnDelete();
-            $table->string('feat_name');
-            $table->foreign('feat_name')->on('feats')->references('name')->cascadeOnDelete();
+            $table->foreignId('feat_id');
+            $table->foreign('feat_id')->on('feats')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

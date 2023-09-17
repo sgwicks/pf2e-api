@@ -17,8 +17,8 @@ class CharacterSkillSeeder extends Seeder
      */
     public function run(Character $character)
     {
-        Skill::query()->pluck('name')->each(function ($name) use ($character) {
-            CharacterSkill::factory()->for($character)->state(['skill_name' => $name])->create();
+        Skill::query()->pluck('id')->each(function ($id) use ($character) {
+            CharacterSkill::factory()->for($character)->state(['skill_id' => $id])->create();
         });
 
     }
