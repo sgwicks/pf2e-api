@@ -4,61 +4,48 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHeritageRequest;
 use App\Http\Requests\UpdateHeritageRequest;
+use App\Http\Resources\HeritageResource;
 use App\Models\Heritage;
+use App\Services\HeritageService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class HeritageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
     public function index()
     {
-        //
-    }
+        $heritages = Heritage::query()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return HeritageResource::collection($heritages);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreHeritageRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return HeritageResource
      */
-    public function store(StoreHeritageRequest $request)
+    public function store(StoreHeritageRequest $request, HeritageService $service)
     {
-        //
+        $heritage = $service->create($request);
+
+        return new HeritageResource($heritage);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Heritage  $heritage
-     * @return \Illuminate\Http\Response
+     * @return HeritageResource
      */
     public function show(Heritage $heritage)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Heritage  $heritage
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Heritage $heritage)
-    {
-        //
+        return new HeritageResource($heritage);
     }
 
     /**
@@ -66,21 +53,25 @@ class HeritageController extends Controller
      *
      * @param  \App\Http\Requests\UpdateHeritageRequest  $request
      * @param  \App\Models\Heritage  $heritage
-     * @return \Illuminate\Http\Response
+     * @return HeritageResource
      */
-    public function update(UpdateHeritageRequest $request, Heritage $heritage)
+    public function update(UpdateHeritageRequest $request, Heritage $heritage, HeritageService $service)
     {
-        //
+        $service->update($request, $heritage);
+
+        return new HeritageResource($heritage);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Heritage  $heritage
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(Heritage $heritage)
+    public function destroy(Heritage $heritage, HeritageService $service)
     {
-        //
+        $service->destroy($heritage);
+
+        return new JsonResponse(null, 204);
     }
 }
