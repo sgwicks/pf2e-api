@@ -13,7 +13,7 @@ class StoreBackgroundRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class StoreBackgroundRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'unique:App\Models\Background,name']
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name' => strtolower(str_replace(' ', '_', $this->name))
+        ]);
     }
 }

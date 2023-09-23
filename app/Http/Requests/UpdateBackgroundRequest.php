@@ -13,7 +13,7 @@ class UpdateBackgroundRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class UpdateBackgroundRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'unique:App\Models\Background,name'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->name) {
+            $this->merge([
+                'name' => strtolower(str_replace(' ', '_', $this->name))
+            ]);
+        }
     }
 }
