@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCharacterClassRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateCharacterClassRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,19 @@ class UpdateCharacterClassRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'unique:App\Models\CharacterClass,name',
+            'key_ability' => 'array',
+            'key_ability.*' => Rule::in('strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'),
+            'hit_points' => 'integer'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->name) {
+            $this->merge([
+                'name' => strtolower(str_replace(' ', '_', $this->name))
+            ]);
+        }
     }
 }

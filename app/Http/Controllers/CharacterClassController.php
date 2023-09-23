@@ -4,61 +4,48 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCharacterClassRequest;
 use App\Http\Requests\UpdateCharacterClassRequest;
+use App\Http\Resources\CharacterClassResource;
 use App\Models\CharacterClass;
+use App\Services\CharacterClassService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CharacterClassController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
     public function index()
     {
-        //
-    }
+        $characterClasses = CharacterClass::query()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return CharacterClassResource::collection($characterClasses);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCharacterClassRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return CharacterClassResource
      */
-    public function store(StoreCharacterClassRequest $request)
+    public function store(StoreCharacterClassRequest $request, CharacterClassService $service)
     {
-        //
+        $characterClass = $service->create($request);
+
+        return new CharacterClassResource($characterClass);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\CharacterClass  $characterClass
-     * @return \Illuminate\Http\Response
+     * @return CharacterClassResource
      */
     public function show(CharacterClass $characterClass)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CharacterClass  $characterClass
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CharacterClass $characterClass)
-    {
-        //
+        return new CharacterClassResource($characterClass);
     }
 
     /**
@@ -66,21 +53,25 @@ class CharacterClassController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCharacterClassRequest  $request
      * @param  \App\Models\CharacterClass  $characterClass
-     * @return \Illuminate\Http\Response
+     * @return CharacterClassResource
      */
-    public function update(UpdateCharacterClassRequest $request, CharacterClass $characterClass)
+    public function update(UpdateCharacterClassRequest $request, CharacterClass $characterClass, CharacterClassService $service)
     {
-        //
+        $service->update($request, $characterClass);
+
+        return new CharacterClassResource($characterClass);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\CharacterClass  $characterClass
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(CharacterClass $characterClass)
+    public function destroy(CharacterClass $characterClass, CharacterClassService $service)
     {
-        //
+        $service->destroy($characterClass);
+
+        return new JsonResponse(null, 204);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Attribute;
@@ -9,6 +10,7 @@ use PhpParser\Node\Attribute;
 class CharacterClass extends Model
 {
     use HasFactory;
+    use HasName;
 
     /**
      * Attributes which are mass assignable
@@ -20,10 +22,6 @@ class CharacterClass extends Model
         'hit_points'
     ];
 
-    protected $casts = [
-      'key_ability' => ''
-    ];
-
     public function characterCharacterClass()
     {
         return $this->hasMany(CharacterCharacterClass::class, 'class_id');
@@ -32,5 +30,11 @@ class CharacterClass extends Model
     public function getKeyAbilityAttribute($value)
     {
         return explode(',', $value);
+    }
+
+    public function setKeyAbilityAttribute($value)
+    {
+
+        $this->attributes['key_ability'] = implode(',', $value);
     }
 }
