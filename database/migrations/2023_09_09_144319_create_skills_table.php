@@ -16,7 +16,7 @@ class CreateSkillsTable extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('attribute')->default('strength');
+            $table->string('ability')->default('strength');
             $table->boolean('armour')->default(false);
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreSkillRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreSkillRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,20 @@ class StoreSkillRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required','unique:App\Models\Skill,name'],
+            'ability' => [
+                'required',
+                Rule::in(['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'])
+            ],
+            'armour' => 'boolean'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name' => strtolower(str_replace(' ', '_', $this->name)),
+            'ability' => strtolower($this->ability)
+        ]);
     }
 }

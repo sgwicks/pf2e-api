@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
+use App\Traits\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Skill extends Model
 {
     use HasFactory;
+    use HasName;
 
     /** @var array  */
     protected $fillable = [
         'name',
-        'attribute',
+        'ability',
         'armour'
     ];
 
     protected $visible = [
         'name',
-        'attribute',
+        'ability',
         'armour'
     ];
 

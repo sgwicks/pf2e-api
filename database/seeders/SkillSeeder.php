@@ -20,10 +20,10 @@ class SkillSeeder extends Seeder
         $this->truncate('skills');
 
         $data = [
-            ['name' => 'acrobatics', 'attribute' => 'dexterity', 'armour' => true],
-            ['name' => 'athletics', 'attribute' => 'strength', 'armour' => true],
-            ['name' => 'animal handling', 'attribute' => 'wisdom', 'armour' => false],
-            ['name' => 'persuasion', 'attribute' => 'charisma', 'armour' => false]
+            ['name' => 'acrobatics', 'ability' => 'dexterity', 'armour' => true],
+            ['name' => 'athletics', 'ability' => 'strength', 'armour' => true],
+            ['name' => 'animal handling', 'ability' => 'wisdom', 'armour' => false],
+            ['name' => 'persuasion', 'ability' => 'charisma', 'armour' => false]
         ];
 
         DB::table('skills')->insert($data);

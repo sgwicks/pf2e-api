@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasName;
 
 class Feat extends Model
 {
     use HasFactory;
+    use HasName;
 
     /** @var array */
     protected $fillable = [
@@ -18,15 +20,5 @@ class Feat extends Model
     public function characterFeats()
     {
         return $this->hasMany(CharacterFeat::class, 'feat_id');
-    }
-
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = strtolower(str_replace(' ', '-', $value));
-    }
-
-    public function getNameTitleCaseAttribute()
-    {
-        return ucwords(str_replace('-', ' ', $this->name));
     }
 }
