@@ -15,7 +15,7 @@ class CreateAncestriesTable extends Migration
     {
         Schema::create('ancestries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ancestry extends Model
 {
     use HasFactory;
+    use HasName;
 
     protected $guarded = [
         'id',

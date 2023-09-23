@@ -13,7 +13,7 @@ class UpdateAncestryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class UpdateAncestryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'unique:App\Models\Ancestry,name'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->name) {
+            $this->merge([
+                'name' => strtolower(str_replace(' ', '_', $this->name))
+            ]);
+        }
     }
 }
