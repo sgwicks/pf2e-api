@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\UpdateCharacterRequest;
+use App\Http\Requests\UpdateCharacterSkillRequest;
 use App\Models\Character;
 use App\Models\CharacterSkill;
 use App\Models\Skill;
+use Illuminate\Database\Eloquent\Model;
 
 class CharacterService
 {
@@ -62,5 +64,19 @@ class CharacterService
         }
 
         return $deleted;
+    }
+
+    public function updateCharacterSkill(UpdateCharacterSkillRequest $request, Model $characterSkill)
+    {
+        $updated = $characterSkill->update([
+            'proficiency' => $request->proficiency ?? $characterSkill->proficiency,
+            'item' => $request->item ?? $characterSkill->item
+        ]);
+
+        if (!$updated) {
+            throw new GeneralJsonException('Skill not updated');
+        }
+
+        return $updated;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCharacterSkillRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateCharacterSkillRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,11 @@ class UpdateCharacterSkillRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'proficiency' => [
+                'integer',
+                Rule::in(0,2,4,6,8)
+            ],
+            'item' => 'integer'
         ];
     }
 }

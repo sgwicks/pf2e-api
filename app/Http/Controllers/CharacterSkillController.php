@@ -4,83 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCharacterSkillRequest;
 use App\Http\Requests\UpdateCharacterSkillRequest;
+use App\Http\Resources\CharacterSkillResource;
+use App\Models\Character;
 use App\Models\CharacterSkill;
+use App\Services\CharacterService;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CharacterSkillController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
-    public function index()
+    public function index(Character $character)
     {
-        //
-    }
+        $characterSkills = $character->skills()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCharacterSkillRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCharacterSkillRequest $request)
-    {
-        //
+        return CharacterSkillResource::collection($characterSkills);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\CharacterSkill  $characterSkill
-     * @return \Illuminate\Http\Response
+     * @return CharacterSkillResource
      */
-    public function show(CharacterSkill $characterSkill)
+    public function show(Character $character, string $characterSkill)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CharacterSkill  $characterSkill
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CharacterSkill $characterSkill)
-    {
-        //
+        $skill = $character->skills()->where('id', $characterSkill)->firstOrFail();
+        return new CharacterSkillResource($skill);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCharacterSkillRequest  $request
-     * @param  \App\Models\CharacterSkill  $characterSkill
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Character  $character
+     * @return CharacterSkillResource
      */
-    public function update(UpdateCharacterSkillRequest $request, CharacterSkill $characterSkill)
+    public function update(UpdateCharacterSkillRequest $request, Character $character, string $characterSkill, CharacterService $service)
     {
-        //
-    }
+        $skill = $character->skills()->where('id', $characterSkill)->firstOrFail();
+        $service->updateCharacterSkill($request, $skill);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CharacterSkill  $characterSkill
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CharacterSkill $characterSkill)
-    {
-        //
+        return new CharacterSkillResource($skill);
     }
 }

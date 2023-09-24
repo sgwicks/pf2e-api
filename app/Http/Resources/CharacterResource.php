@@ -15,6 +15,7 @@ class CharacterResource extends JsonResource
     {
         $combinedSkills = $this->skills->map(function ($skill) {
             return [
+                'id' => $skill->id,
                 'name' => $skill->skill->name,
                 'ability' => $skill->skill->ability,
                 'armour' => $skill->skill->armour,
@@ -25,6 +26,7 @@ class CharacterResource extends JsonResource
 
         $combinedFeats = $this->feats->map(function ($feat) {
             return [
+                'id' => $feat->id,
                 'name' => $feat->feat->nameTitleCase,
                 'description' => $feat->feat->description
             ];
@@ -32,10 +34,11 @@ class CharacterResource extends JsonResource
 
         $combinedCharacterClasses = $this->characterClasses->map(function($characterClass) {
             return [
-              'name' => $characterClass->characterClass->name,
-              'level' => $characterClass->level,
-              'hit_points_per_level' => $characterClass->characterClass->hit_points,
-              'ability_options' => $characterClass->characterClass->key_ability,
+                'id' => $characterClass->id,
+                'name' => $characterClass->characterClass->name,
+                'level' => $characterClass->level,
+                'hit_points_per_level' => $characterClass->characterClass->hit_points,
+                'ability_options' => $characterClass->characterClass->key_ability,
             ];
         });
 

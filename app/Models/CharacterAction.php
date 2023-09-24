@@ -16,6 +16,7 @@ class CharacterAction extends Model
     ];
 
     protected $visible = [
+        'id',
         'name',
         'description',
         'action',

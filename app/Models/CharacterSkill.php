@@ -24,11 +24,4 @@ class CharacterSkill extends Model
     {
         return $this->belongsTo(Skill::class, 'skill_id');
     }
-
-    public function skillInfo()
-    {
-        dd('aaa');
-//        dd($this->getAttribute('skill'));
-//        return $this->getAttribute('skill');
-    }
 }
