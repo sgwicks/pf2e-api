@@ -11,4 +11,6 @@ Route::prefix('ancestries')
         Route::post('/', [AncestryController::class, 'store'])->name('store');
         Route::patch('/{ancestry}', [AncestryController::class, 'update'])->name('update');
         Route::delete('/{ancestry}', [AncestryController::class, 'destroy'])->name('destroy');
+
+//        Route::post('/bulk-upload');
     });

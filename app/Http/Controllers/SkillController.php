@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSkillRequest;
 use App\Http\Requests\UpdateSkillRequest;
 use App\Http\Resources\SkillResource;
+use App\Imports\SkillsImport;
 use App\Models\Skill;
 use App\Services\SkillService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SkillController extends Controller
 {
@@ -73,5 +76,16 @@ class SkillController extends Controller
         $service->destroy($skill);
 
         return new JsonResponse(null, 204);
+    }
+
+    public function bulkUpload(Request $request)
+    {
+//        $file = $request->file('file');
+//        dd($file);
+        Excel::import(new SkillsImport(), $request->file('file'));
+
+        $skills = Skill::query()->get();
+
+        return SkillResource::collection($skills);
     }
 }

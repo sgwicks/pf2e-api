@@ -11,4 +11,6 @@ Route::prefix('backgrounds')
         Route::post('/', [BackgroundController::class, 'store'])->name('store');
         Route::patch('/{background}', [BackgroundController::class, 'update'])->name('update');
         Route::delete('/{background}', [BackgroundController::class, 'destroy'])->name('destroy');
+
+        //        Route::post('/bulk-upload');
     });

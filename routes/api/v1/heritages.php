@@ -11,4 +11,6 @@ Route::prefix('heritages')
         Route::post('/', [HeritageController::class, 'store'])->name('store');
         Route::patch('/{heritage}', [HeritageController::class, 'update'])->name('update');
         Route::delete('/{heritage}', [HeritageController::class, 'destroy'])->name('destroy');
+
+        //        Route::post('/bulk-upload');
     });

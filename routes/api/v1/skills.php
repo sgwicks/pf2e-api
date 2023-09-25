@@ -11,4 +11,6 @@ Route::prefix('skills')
         Route::post('/', [SkillController::class, 'store'])->name('store');
         Route::patch('/{skill}', [SkillController::class, 'update'])->name('update');
         Route::delete('/{skill}', [SkillController::class, 'destroy'])->name('destroy');
+
+        Route::post('/bulk-upload', [SkillController::class, 'bulkUpload'])->name('bulkUpload');
     });

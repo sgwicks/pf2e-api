@@ -11,4 +11,6 @@ Route::prefix('feats')
         Route::post('/', [FeatController::class, 'store'])->name('store');
         Route::patch('/{feat}', [FeatController::class, 'update'])->name('update');
         Route::delete('/{feat}', [FeatController::class, 'destroy'])->name('destroy');
+
+        //        Route::post('/bulk-upload');
     });
