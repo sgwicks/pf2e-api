@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CharacterActionController;
 use App\Http\Controllers\CharacterFeatController;
+use App\Http\Controllers\CharacterCharacterClassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterSkillController;
@@ -42,6 +43,16 @@ Route::prefix('characters')
                         Route::get('/{character_action}', [CharacterActionController::class, 'show'])->name('show');
                         Route::patch('/{character_action', [CharacterActionController::class, 'update'])->name('update');
                         Route::delete('/{character_action}', [CharacterActionController::class, 'destroy'])->name('destroy');
+                    });
+
+                Route::prefix('/character_classes')
+                    ->name('character_classes.')
+                    ->group(function () {
+                        Route::get('/', [CharacterCharacterClassController::class, 'index'])->name('index');
+                        Route::post('/', [CharacterCharacterClassController::class, 'store'])->name('store');
+                        Route::get('/{character_class}', [CharacterCharacterClassController::class, 'show'])->name('show');
+                        Route::patch('/{character_class}', [CharacterCharacterClassController::class, 'update'])->name('update');
+                        Route::delete('/{character_class}', [CharacterCharacterClassController::class, 'destroy'])->name('destroy');
                     });
             });
     });

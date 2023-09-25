@@ -16,7 +16,6 @@ class CharacterCharacterClass extends Model
     ];
 
     protected $visible = [
-        'class_name',
         'level'
     ];
 

@@ -13,7 +13,7 @@ class UpdateCharacterCharacterClassRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateCharacterCharacterClassRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'level' => ['required', 'integer']
         ];
     }
 }

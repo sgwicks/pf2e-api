@@ -13,7 +13,7 @@ class StoreCharacterCharacterClassRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreCharacterCharacterClassRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'class_id' => 'required_without:class_name',
+            'class_name' => 'required_without:class_id',
+            'level' => ['sometimes','integer']
         ];
     }
 }
