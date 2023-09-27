@@ -80,8 +80,6 @@ class SkillController extends Controller
 
     public function bulkUpload(Request $request)
     {
-//        $file = $request->file('file');
-//        dd($file);
         Excel::import(new SkillsImport(), $request->file('file'));
 
         $skills = Skill::query()->get();

@@ -12,5 +12,5 @@ Route::prefix('character_classes')
         Route::patch('/{character_class}', [CharacterClassController::class, 'update'])->name('update');
         Route::delete('/{character_class}', [CharacterClassController::class, 'destroy'])->name('destroy');
 
-        //        Route::post('/bulk-upload');
+        Route::post('/bulk-upload', [CharacterClassController::class, 'bulkUpload'])->name('bulkUpload');
     });

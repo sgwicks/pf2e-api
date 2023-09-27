@@ -34,7 +34,6 @@ class CharacterClass extends Model
 
     public function setKeyAbilityAttribute($value)
     {
-
         $this->attributes['key_ability'] = implode(',', $value);
     }
 }

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCharacterClassRequest;
 use App\Http\Requests\UpdateCharacterClassRequest;
 use App\Http\Resources\CharacterClassResource;
+use App\Imports\CharacterClassesImport;
 use App\Models\CharacterClass;
 use App\Services\CharacterClassService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CharacterClassController extends Controller
 {
@@ -73,5 +76,14 @@ class CharacterClassController extends Controller
         $service->destroy($characterClass);
 
         return new JsonResponse(null, 204);
+    }
+
+    public function bulkUpload(Request $request)
+    {
+        Excel::import(new CharacterClassesImport(), $request->file('file'));
+
+        $characterClasses = CharacterClass::query()->get();
+
+        return CharacterClassResource::collection($characterClasses);
     }
 }
