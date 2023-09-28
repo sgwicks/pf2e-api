@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
@@ -73,5 +74,12 @@ class UserController extends Controller
         $service->destroy($user);
 
         return new JsonResponse(null, 204);
+    }
+
+    public function login(LoginRequest $request, UserService $service)
+    {
+        $user = $service->login($request);
+
+        return new UserResource($user);
     }
 }
