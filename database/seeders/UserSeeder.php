@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\Traits\ForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
@@ -18,6 +19,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         $this->truncate('users');
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
+
+        $users->each(function (User $user) {
+           $user->roles->add(Role::query()->firstWhere('role', 'user'));
+        });
     }
 }

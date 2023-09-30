@@ -48,6 +48,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Character::class, 'user_id');
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -56,5 +61,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function hasPermission(string $permission)
+    {
+
     }
 }
