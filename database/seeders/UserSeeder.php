@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         $users = User::factory(10)->create();
 
         $users->each(function (User $user) {
-           $user->roles->add(Role::query()->firstWhere('role', 'user'));
+           $user->roles()->save(Role::query()->firstWhere('role', 'user'));
         });
     }
 }
