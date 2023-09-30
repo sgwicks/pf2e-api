@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
+use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -44,9 +46,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return UserResource
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        return new UserResource($user);
+        return (new UserResource($user));
     }
 
     /**
@@ -74,12 +76,5 @@ class UserController extends Controller
         $service->destroy($user);
 
         return new JsonResponse(null, 204);
-    }
-
-    public function login(LoginRequest $request, UserService $service)
-    {
-        $user = $service->login($request);
-
-        return new UserResource($user);
     }
 }

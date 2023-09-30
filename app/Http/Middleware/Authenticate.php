@@ -2,20 +2,29 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\GeneralJsonException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Closure;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class Authenticate extends Middleware
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    protected function redirectTo($request)
+    public function handle($request, Closure $next, ...$guards): Response
     {
-        if (! $request->expectsJson()) {
-            return route('login');
+        if ($request->user()) {
+            return $next($request);
         }
+
+        $credentials = [
+            'email' => $request->getUser(),
+            'password' => $request->getPassword()
+        ];
+
+        if (!$token = auth()->attempt($credentials)) {
+            throw new GeneralJsonException('Incorrect username or password');
+        }
+
+        return $next($request)->header('Authorization', 'Bearer '.$token);
     }
 }

@@ -55,16 +55,4 @@ class UserService
 
         return $deleted;
     }
-
-    public function login(LoginRequest $request)
-    {
-
-        $isAuth = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-
-        if (!$isAuth) {
-            throw new GeneralJsonException('Incorrect username or password');
-        }
-
-        return User::query()->where('email', $request->email)->firstOrFail();
-    }
 }
