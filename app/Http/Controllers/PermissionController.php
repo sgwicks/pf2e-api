@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use App\Http\Resources\PermissionResource;
 use App\Models\Permission;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
     public function index()
     {
-        //
+        $permissions = Permission::query()->get();
+
+        return PermissionResource::collection($permissions);
     }
 
     /**

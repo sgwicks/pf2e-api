@@ -13,6 +13,12 @@ Route::group([
     Route::group([
         'prefix' => 'permissions'
     ], function () {
-       Route::post('/permissions', [PermissionController::class, 'store']);
+       Route::get('/', [PermissionController::class, 'index']);
+    });
+
+    Route::group([
+        'prefix' => 'roles'
+    ], function () {
+        Route::get('/', [RoleController::class, 'index']);
     });
 });

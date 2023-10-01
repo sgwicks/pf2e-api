@@ -12,19 +12,20 @@ class Authenticate extends Middleware
 {
     public function handle($request, Closure $next, ...$guards): Response
     {
-        if ($request->user()) {
-            return $next($request);
-        }
-
-        $credentials = [
-            'email' => $request->getUser(),
-            'password' => $request->getPassword()
-        ];
-
-        if (!$token = auth()->attempt($credentials)) {
-            throw new GeneralJsonException('Incorrect username or password');
-        }
-
-        return $next($request)->header('Authorization', 'Bearer '.$token);
+        return $next($request);
+//        if ($request->user()) {
+//            return $next($request);
+//        }
+//
+//        $credentials = [
+//            'email' => $request->getUser(),
+//            'password' => $request->getPassword()
+//        ];
+//
+//        if (!$token = auth()->attempt($credentials)) {
+//            throw new GeneralJsonException('Incorrect username or password');
+//        }
+//
+//        return $next($request)->header('Authorization', 'Bearer '.$token);
     }
 }

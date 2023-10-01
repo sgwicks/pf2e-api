@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Http\Resources\RoleResource;
 use App\Models\Role;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
     public function index()
     {
-        //
+        $roles = Role::query()->get();
+
+        return RoleResource::collection($roles);
     }
 
     /**
