@@ -14,11 +14,19 @@ Route::group([
         'prefix' => 'permissions'
     ], function () {
        Route::get('/', [PermissionController::class, 'index']);
+       Route::post('/', [PermissionController::class, 'store']);
+       Route::get('/{permission}', [PermissionController::class, 'show']);
+//       Route::patch('/{permission}', [PermissionController::class, 'update']);
+       Route::delete('/{permission}', [PermissionController::class, 'destroy']);
     });
 
     Route::group([
         'prefix' => 'roles'
     ], function () {
         Route::get('/', [RoleController::class, 'index']);
+        Route::post('/', [RoleController::class, 'store']);
+        Route::get('/{role}', [RoleController::class, 'show']);
+//        Route::patch('/{role}', [RoleController::class, 'update']);
+        Route::delete('/{role}', [RoleController::class, 'destroy']);
     });
 });

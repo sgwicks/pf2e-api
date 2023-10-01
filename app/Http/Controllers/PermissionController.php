@@ -6,6 +6,8 @@ use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Http\Resources\PermissionResource;
 use App\Models\Permission;
+use App\Services\PermissionService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PermissionController extends Controller
@@ -23,68 +25,39 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePermissionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return PermissionResource
      */
-    public function store(StorePermissionRequest $request)
+    public function store(StorePermissionRequest $request, PermissionService $service)
     {
-        //
+        $permission = $service->create($request);
+
+        return new PermissionResource($permission);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
+     * @return PermissionResource
      */
     public function show(Permission $permission)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePermissionRequest  $request
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePermissionRequest $request, Permission $permission)
-    {
-        //
+        return new PermissionResource($permission);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission, PermissionService $service)
     {
-        //
+        $service->destroy($permission);
+
+        return new JsonResponse(null, 204);
     }
 }
