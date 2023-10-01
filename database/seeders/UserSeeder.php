@@ -24,5 +24,9 @@ class UserSeeder extends Seeder
         $users->each(function (User $user) {
            $user->roles()->save(Role::query()->firstWhere('role', 'user'));
         });
+
+        $admin = User::factory()->admin()->create();
+        $admin->roles()->save(Role::query()->firstWhere('role', 'admin'));
+        $admin->roles()->save(Role::query()->firstWhere('role', 'user'));
     }
 }

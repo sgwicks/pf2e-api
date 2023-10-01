@@ -36,4 +36,9 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function admin()
+    {
+        return $this->state([ 'email' => 'admin@example.com' ]);
+    }
 }
