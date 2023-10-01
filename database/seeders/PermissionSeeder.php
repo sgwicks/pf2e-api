@@ -18,8 +18,9 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $this->truncate('permissions');
-
-        Role::query()->firstWhere('role', 'user')->permissions()->createMany([
+        $userPermissions = Permission::factory()
+            ->count(8)
+            ->sequence(
             ['permission' => 'show.user.own'],
             ['permission' => 'update.user.own'],
             ['permission' => 'delete.user.own'],
@@ -27,9 +28,17 @@ class PermissionSeeder extends Seeder
             ['permission' => 'show.character.own'],
             ['permission' => 'create.character.own'],
             ['permission' => 'update.character.own'],
-            ['permission' => 'delete.character.own'],
-        ]);
-        Role::query()->firstWhere('role', 'admin')->permissions()->createMany([
+            ['permission' => 'delete.character.own']
+            )
+            ->create();
+
+        $userPermissions->each(function (Permission $permission) {
+            $permission->roles()->attach([Role::query()->firstWhere('role', 'user')->id]);
+        });
+
+        $adminPermissions = Permission::factory()
+            ->count(9)
+            ->sequence(
             ['permission' => 'index.user.any'],
             ['permission' => 'show.user.any'],
             ['permission' => 'update.user.any'],
@@ -39,6 +48,12 @@ class PermissionSeeder extends Seeder
             ['permission' => 'create.character.any'],
             ['permission' => 'update.character.any'],
             ['permission' => 'delete.character.any'],
-        ]);
+            )
+            ->hasAttached(Role::query()->firstWhere('role', 'admin'))
+            ->create();
+
+        $adminPermissions->each(function (Permission $permission) {
+            $permission->roles()->sync([Role::query()->firstWhere('role', 'admin')->id]);
+        });
     }
 }

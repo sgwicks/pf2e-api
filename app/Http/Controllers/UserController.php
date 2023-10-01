@@ -11,7 +11,6 @@ use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -48,6 +47,9 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user)
     {
+        if ($request->user()->cannot('show', $user)) {
+            throw new GeneralJsonException('No permission to access that user', 403);
+        }
         return (new UserResource($user));
     }
 
