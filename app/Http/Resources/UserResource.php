@@ -17,14 +17,14 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-//            'characters' => $this->with($request)
+            'characters' => $this->getCharacters()
         ];
     }
 
-    public function with($request)
+    public function getCharacters()
     {
-        $characters = Character::query()->where('user_id', $request->user()->id)->get();
+        $characters = Character::query()->where('user_id', $this->id)->get();
 
-        return ['characters' => CharacterResource::collection($characters)];
+        return CharacterResource::collection($characters);
     }
 }
