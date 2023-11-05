@@ -36,7 +36,8 @@ class CharacterCharacterClassService
     public function update(UpdateCharacterCharacterClassRequest $request, Model $characterClass)
     {
         $updated = $characterClass->update([
-            'level' => $request->level ?? $characterClass->level
+            'level' => $request->level ?? $characterClass->level,
+            'key_ability' => $request->key_ability ?? $characterClass->key_ability
         ]);
 
         if (!$updated) {

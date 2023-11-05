@@ -16,6 +16,7 @@ class CharacterCharacterClassResource extends JsonResource
             'id' => $this->id,
             'name' => $this->characterClass->nameTitleCase,
             'key_ability' => $this->characterClass->key_ability,
+            'chosen_ability' => $this->key_ability ?? null,
             'hit_points' => $this->characterClass->hit_points,
             'level' => $this->level
         ];
