@@ -22,7 +22,7 @@ class CharacterResource extends JsonResource
                 'proficiency' => $skill->proficiency,
                 'item' => $skill->item
             ];
-        });
+        })->sortBy('name')->values();
 
         $combinedFeats = $this->feats->map(function ($feat) {
             return [
@@ -39,6 +39,7 @@ class CharacterResource extends JsonResource
                 'level' => $characterClass->level,
                 'hit_points_per_level' => $characterClass->characterClass->hit_points,
                 'ability_options' => $characterClass->characterClass->key_ability,
+                'chosen_ability' => $characterClass->key_ability ?? null
             ];
         });
 

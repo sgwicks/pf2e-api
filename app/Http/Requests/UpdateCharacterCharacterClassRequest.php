@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCharacterCharacterClassRequest extends FormRequest
 {
@@ -24,7 +25,11 @@ class UpdateCharacterCharacterClassRequest extends FormRequest
     public function rules()
     {
         return [
-            'level' => ['required', 'integer']
+            'level' => ['required', 'integer'],
+            'key_ability' => [
+                'sometimes',
+                Rule::in(['strength','dexterity','constitution','intelligence','wisdom','charisma'])
+            ]
         ];
     }
 }
