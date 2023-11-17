@@ -45,4 +45,9 @@ class Character extends Model
     {
         return $this->hasMany(CharacterItem::class, 'character_id');
     }
+
+    public function savingThrows()
+    {
+        return $this->hasOne(CharacterSavingThrow::class, 'character_id');
+    }
 }

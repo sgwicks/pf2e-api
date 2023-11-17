@@ -61,6 +61,11 @@ class CharacterResource extends JsonResource
               'wisdom' => $this->wisdom,
               'charisma' => $this->charisma
           ],
+          'saving_throws' => [
+              'fortitude' => $this->savingThrows->fortitude,
+              'reflex' => $this->savingThrows->reflex,
+              'will' => $this->savingThrows->will
+          ],
           'skills' => $combinedSkills,
           'feats' => $combinedFeats,
           'actions' => $this->actions,
