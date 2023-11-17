@@ -31,7 +31,8 @@ class CharacterSeeder extends Seeder
                 CharacterCharacterClassSeeder::class,
                 CharacterSkillSeeder::class,
                 CharacterActionSeeder::class,
-                CharacterItemSeeder::class
+                CharacterItemSeeder::class,
+                CharacterSavingThrowSeeder::class
             ],
                 ['character' => $character]
             );

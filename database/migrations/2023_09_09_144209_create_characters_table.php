@@ -23,12 +23,12 @@ class CreateCharactersTable extends Migration
             $table->string('alignment')->nullable();
             $table->string('traits')->nullable();
             $table->string('deity')->nullable();
-            $table->integer('strength')->default(10);
-            $table->integer('dexterity')->default(10);
-            $table->integer('constitution')->default(10);
-            $table->integer('intelligence')->default(10);
-            $table->integer('wisdom')->default(10);
-            $table->integer('charisma')->default(10);
+            $table->integer('strength')->default(0);
+            $table->integer('dexterity')->default(0);
+            $table->integer('constitution')->default(0);
+            $table->integer('intelligence')->default(0);
+            $table->integer('wisdom')->default(0);
+            $table->integer('charisma')->default(0);
             $table->integer('level')->default(1);
             $table->foreignId('user_id');
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
