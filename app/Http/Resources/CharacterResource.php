@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\CharacterSavingThrowResource;
 use App\Http\Resources\CharacterMovementResource;
 use App\Http\Resources\CharacterPerceptionResource;
+use App\Http\Resources\CharacterHealthResource;
 
 class CharacterResource extends JsonResource
 {
@@ -58,6 +59,7 @@ class CharacterResource extends JsonResource
           'deity' => $this->deity,
           'perception' => new CharacterPerceptionResource($this->perception),
           'movement' => new CharacterMovementResource($this->movement),
+          'health' => new CharacterHealthResource($this->health),
           'abilities' => [
               'strength' => $this->strength,
               'dexterity' => $this->dexterity,

@@ -60,4 +60,9 @@ class Character extends Model
     {
         return $this->hasOne(CharacterPerception::class, 'character_id');
     }
+
+    public function health()
+    {
+        return $this->hasOne(CharacterHealth::class, 'character_id');
+    }
 }

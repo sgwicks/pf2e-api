@@ -9,6 +9,7 @@ use App\Http\Controllers\CharacterSkillController;
 use App\Http\Controllers\CharacterSavingThrowController;
 use App\Http\Controllers\CharacterMovementController;
 use App\Http\Controllers\CharacterPerceptionController;
+use App\Http\Controllers\CharacterHealthController;
 
 Route::prefix('characters')
     ->name('characters.')
@@ -74,6 +75,12 @@ Route::prefix('characters')
                     ->name('perception.')
                     ->group(function () {
                         Route::patch('/', [CharacterPerceptionController::class, 'update'])->name('update');
+                    });
+
+                Route::prefix('/health')
+                    ->name('health.')
+                    ->group(function () {
+                        Route::patch('/', [CharacterHealthController::class, 'update'])->name('update');
                     });
                 });
     });
