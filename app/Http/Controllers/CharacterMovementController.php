@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCharacterMovementRequest;
 use App\Http\Requests\UpdateCharacterMovementRequest;
 use App\Models\CharacterMovement;
+use App\Models\Character;
+use App\Http\Resources\CharacterMovementResource;
+use App\Services\CharacterMovementService;
 
 class CharacterMovementController extends Controller
 {
@@ -14,16 +17,6 @@ class CharacterMovementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -51,26 +44,18 @@ class CharacterMovementController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CharacterMovement  $characterMovement
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CharacterMovement $characterMovement)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCharacterMovementRequest  $request
-     * @param  \App\Models\CharacterMovement  $characterMovement
-     * @return \Illuminate\Http\Response
+     * @param  Character  $character
+     * @return CharacterMovementResource
      */
-    public function update(UpdateCharacterMovementRequest $request, CharacterMovement $characterMovement)
+    public function update(UpdateCharacterMovementRequest $request, Character $character, CharacterMovementService $service)
     {
-        //
+        $movement = $character->movement;
+        $service->update($request, $movement);
+
+        return new CharacterMovementResource($movement);
     }
 
     /**

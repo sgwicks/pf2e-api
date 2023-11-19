@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CharacterSavingThrowResource extends JsonResource
+class CharacterMovementResource extends JsonResource
 {
     /**
      * @param \Illuminate\Http\Request

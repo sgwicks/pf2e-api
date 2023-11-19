@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterSkillController;
 use App\Http\Controllers\CharacterSavingThrowController;
+use App\Http\Controllers\CharacterMovementController;
 
 Route::prefix('characters')
     ->name('characters.')
@@ -60,6 +61,12 @@ Route::prefix('characters')
                     ->name('saving_throws.')
                     ->group(function () {
                         Route::patch('/', [CharacterSavingThrowController::class, 'update'])->name('update');
+                    });
+
+                Route::prefix('/movement')
+                    ->name('movement.')
+                    ->group(function () {
+                        Route::patch('/', [CharacterMovementController::class, 'update'])->name('update');
                     });
                 });
     });
