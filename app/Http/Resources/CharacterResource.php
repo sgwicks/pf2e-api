@@ -53,6 +53,13 @@ class CharacterResource extends JsonResource
           'alignment' => $this->alignment,
           'traits' => $this->traits,
           'deity' => $this->deity,
+          'movement' => [
+            'base' => $this->movement->base,
+            'burrow' => $this->movement->burrow,
+            'climb' => $this->movement->climb,
+            'fly' => $this->movement->fly,
+            'swim' => $this->movement->swim,
+          ],
           'abilities' => [
               'strength' => $this->strength,
               'dexterity' => $this->dexterity,
