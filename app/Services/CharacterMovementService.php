@@ -25,7 +25,7 @@ class CharacterMovementService
         ]);
 
         if (!$updated) {
-            throw new GeneralJsonException('Saving throws not updated');
+            throw new GeneralJsonException('Movement not updated');
         }
 
         return $updated;

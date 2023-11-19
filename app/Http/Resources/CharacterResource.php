@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use App\Models\Skill;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\CharacterSavingThrowResource;
+use App\Http\Resources\CharacterMovementResource;
+use App\Http\Resources\CharacterPerceptionResource;
 
 class CharacterResource extends JsonResource
 {
@@ -53,13 +56,8 @@ class CharacterResource extends JsonResource
           'alignment' => $this->alignment,
           'traits' => $this->traits,
           'deity' => $this->deity,
-          'movement' => [
-            'base' => $this->movement->base,
-            'burrow' => $this->movement->burrow,
-            'climb' => $this->movement->climb,
-            'fly' => $this->movement->fly,
-            'swim' => $this->movement->swim,
-          ],
+          'perception' => new CharacterPerceptionResource($this->perception),
+          'movement' => new CharacterMovementResource($this->movement),
           'abilities' => [
               'strength' => $this->strength,
               'dexterity' => $this->dexterity,
@@ -68,11 +66,7 @@ class CharacterResource extends JsonResource
               'wisdom' => $this->wisdom,
               'charisma' => $this->charisma
           ],
-          'saving_throws' => [
-              'fortitude' => $this->savingThrows->fortitude,
-              'reflex' => $this->savingThrows->reflex,
-              'will' => $this->savingThrows->will
-          ],
+          'saving_throws' => new CharacterSavingThrowResource($this->savingThrows),
           'skills' => $combinedSkills,
           'feats' => $combinedFeats,
           'actions' => $this->actions,

@@ -55,4 +55,9 @@ class Character extends Model
     {
         return $this->hasOne(CharacterMovement::class, 'character_id');
     }
+
+    public function perception()
+    {
+        return $this->hasOne(CharacterPerception::class, 'character_id');
+    }
 }

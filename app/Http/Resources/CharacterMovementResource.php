@@ -13,13 +13,11 @@ class CharacterMovementResource extends JsonResource
     public function ToArray($request)
     {
         return [
-            'id' => $this->id,
             'base' => $this->base,
             'burrow' => $this->burrow,
             'climb' => $this->climb,
             'fly' => $this->fly,
             'swim' => $this->swim,
-            'character_id' => $this->character_id
         ];
     }
 }
