@@ -50,4 +50,19 @@ class Character extends Model
     {
         return $this->hasOne(CharacterSavingThrow::class, 'character_id');
     }
+
+    public function movement()
+    {
+        return $this->hasOne(CharacterMovement::class, 'character_id');
+    }
+
+    public function perception()
+    {
+        return $this->hasOne(CharacterPerception::class, 'character_id');
+    }
+
+    public function health()
+    {
+        return $this->hasOne(CharacterHealth::class, 'character_id');
+    }
 }

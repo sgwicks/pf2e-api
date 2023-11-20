@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CharacterSavingThrowResource extends JsonResource
+class CharacterMovementResource extends JsonResource
 {
     /**
      * @param \Illuminate\Http\Request
@@ -13,9 +13,11 @@ class CharacterSavingThrowResource extends JsonResource
     public function ToArray($request)
     {
         return [
-            'fortitude' => $this->fortitude,
-            'reflex' => $this->reflex,
-            'will' => $this->will,
+            'base' => $this->base,
+            'burrow' => $this->burrow,
+            'climb' => $this->climb,
+            'fly' => $this->fly,
+            'swim' => $this->swim,
         ];
     }
 }
