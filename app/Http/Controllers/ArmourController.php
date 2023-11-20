@@ -4,61 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArmourRequest;
 use App\Http\Requests\UpdateArmourRequest;
+use App\Http\Resources\ArmourResource;
 use App\Models\Armour;
+use App\Services\ArmourService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
+
 
 class ArmourController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
     public function index()
     {
-        //
-    }
+        $armours = Armour::query()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ArmourResource::collection($armours);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreArmourRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return ArmourResource
      */
-    public function store(StoreArmourRequest $request)
+    public function store(StoreArmourRequest $request, ArmourService $service): ArmourResource
     {
-        //
+        $created = $service->create($request);
+
+        return new ArmourResource($created);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Armour  $armour
-     * @return \Illuminate\Http\Response
+     * @return ArmourResource
      */
     public function show(Armour $armour)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Armour  $armour
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Armour $armour)
-    {
-        //
+        return new ArmourResource($armour);
     }
 
     /**
@@ -66,7 +56,7 @@ class ArmourController extends Controller
      *
      * @param  \App\Http\Requests\UpdateArmourRequest  $request
      * @param  \App\Models\Armour  $armour
-     * @return \Illuminate\Http\Response
+     * @return ArmourResource
      */
     public function update(UpdateArmourRequest $request, Armour $armour)
     {
@@ -77,7 +67,7 @@ class ArmourController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Armour  $armour
-     * @return \Illuminate\Http\Response
+     * @return ArmourResource
      */
     public function destroy(Armour $armour)
     {

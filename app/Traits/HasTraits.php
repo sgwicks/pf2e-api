@@ -9,12 +9,12 @@ trait HasTraits
 {
     public function setTraitsAttribute($value)
     {
-        if (!$value) return [];
-        return explode(',', $value);
+        $this->attributes['traits'] = implode(',', $value);
     }
 
-    public function getTraitsAttribute()
+    public function getTraitsAttribute($value)
     {
-        $this->attributes['traits'] = implode(',', $value);
+        if (!$value) return [];
+        return explode(',', $value);
     }
 }

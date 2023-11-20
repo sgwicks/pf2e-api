@@ -11,6 +11,12 @@ class Armour extends Model
 {
     use HasFactory, HasName, HasTraits;
 
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
     public function characterArmours()
     {
         return $this->hasMany(CharacterArmour::class, 'armour_id');
