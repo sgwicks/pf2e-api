@@ -13,7 +13,7 @@ class StoreCharacterArmourRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreCharacterArmourRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'armour_id' => ['required_without:armour_name', 'integer'],
+            'name' => ['required_without:armour_id', 'string']
         ];
     }
 }

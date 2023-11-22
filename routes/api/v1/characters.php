@@ -6,6 +6,7 @@ use App\Http\Controllers\CharacterCharacterClassController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterSkillController;
+use App\Http\Controllers\CharacterArmourController;
 use App\Http\Controllers\CharacterSavingThrowController;
 use App\Http\Controllers\CharacterMovementController;
 use App\Http\Controllers\CharacterPerceptionController;
@@ -57,6 +58,15 @@ Route::prefix('characters')
                         Route::get('/{character_class}', [CharacterCharacterClassController::class, 'show'])->name('show');
                         Route::patch('/{character_class}', [CharacterCharacterClassController::class, 'update'])->name('update');
                         Route::delete('/{character_class}', [CharacterCharacterClassController::class, 'destroy'])->name('destroy');
+                    });
+                
+                Route::prefix('/armours')
+                    ->name('armours.')
+                    ->group(function () {
+                        Route::get('/', [CharacterArmourController::class, 'index'])->name('index');
+                        Route::post('/', [CharacterArmourController::class, 'store'])->name('store');
+                        Route::get('/{armour}', [CharacterArmourController::class, 'show'])->name('show');
+                        Route::delete('/{armour}', [CharacterArmourController::class, 'destroy'])->name('destroy');
                     });
                 
                 Route::prefix('/saving_throws')

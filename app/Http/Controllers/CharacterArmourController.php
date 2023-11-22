@@ -4,71 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCharacterArmourRequest;
 use App\Http\Requests\UpdateCharacterArmourRequest;
+use App\Models\Character;
 use App\Models\CharacterArmour;
+use App\Services\CharacterArmourService;
+use App\Http\Resources\CharacterArmourResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CharacterArmourController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
-    public function index()
+    public function index(Character $character)
     {
-        //
-    }
+        $armours = $character->armours()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return CharacterArmourResource::collection($armours);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCharacterArmourRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return CharacterArmourResource
      */
-    public function store(StoreCharacterArmourRequest $request)
+    public function store(StoreCharacterArmourRequest $request, Character $character, CharacterArmourService $service)
     {
-        //
+        $created = $service->add($request, $character);
+
+        return new CharacterArmourResource($created);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CharacterArmour  $characterArmour
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Character  $character
+     * @return CharacterArmourResource
      */
-    public function show(CharacterArmour $characterArmour)
+    public function show(Character $character, string $characterArmour)
     {
-        //
-    }
+        $armour = $character->armours()->where('id', $characterArmour)->firstOrFail();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CharacterArmour  $characterArmour
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CharacterArmour $characterArmour)
-    {
-        //
+        return new CharacterArmourResource($armour);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCharacterArmourRequest  $request
-     * @param  \App\Models\CharacterArmour  $characterArmour
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Character  $character
+     * @return CharacterArmourResource
      */
-    public function update(UpdateCharacterArmourRequest $request, CharacterArmour $characterArmour)
+    public function update(UpdateCharacterArmourRequest $request, Character $character, string $characterArmour)
     {
         //
     }
@@ -76,11 +66,15 @@ class CharacterArmourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CharacterArmour  $characterArmour
+     * @param  \App\Models\Character $character
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CharacterArmour $characterArmour)
+    public function destroy(Character $character, string $characterArmour, CharacterArmourService $service)
     {
-        //
+        $armour = $character->armours()->where('id', $characterArmour)->firstOrFail();
+
+        $service->remove($armour);
+
+        return new JsonResponse(null, 204);
     }
 }

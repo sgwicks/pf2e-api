@@ -42,16 +42,25 @@ class ArmourService
      */
     public function update(UpdateArmourRequest $request, Armour $armour): bool
     {
-        // $updated = $armour->update([
-        //     'name' => $request->name ?? $armour->name,
-        //     'description' => $request->description ?? $armour->description
-        // ]);
+        $updated = Armour::query()->create([
+            'name' => $request->name ?? $armour->name,
+            'category' => $request->category ?? $armour->category,
+            'price' => $request->price ?? $armour->price,
+            'armour_class' => $request->armour_class ?? $armour->armour_class,
+            'dex_cap' => $request->dex_cap ?? $armour->dex_cap,
+            'check_penalty' => $request->check_penalty ?? $armour->check_penalty,
+            'speed_penalty' => $request->speed_penalty ?? $armour->speed_penalty,
+            'strength' => $request->strength ?? $armour->strength,
+            'bulk' => $request->bulk ?? $armour->bulk,
+            'group' => $request->group ?? $armour->group,
+            'traits' => $request->traits ?? $armour->traits
+        ]);
 
-        // if (!$updated) {
-        //     throw new GeneralJsonException('Armour not updated');
-        // }
+        if (!$updated) {
+            throw new GeneralJsonException('Armour not updated');
+        }
 
-        // return $updated;
+        return $updated;
     }
 
     /**
@@ -61,12 +70,12 @@ class ArmourService
      */
     public function destroy(Armour $armour): bool
     {
-        // $deleted = $armour->forceDelete();
+        $deleted = $armour->forceDelete();
 
-        // if (!$deleted) {
-        //     throw new GeneralJsonException('Armour not deleted');
-        // }
+        if (!$deleted) {
+            throw new GeneralJsonException('Armour not deleted');
+        }
 
-        // return $deleted;
+        return $deleted;
     }
 }

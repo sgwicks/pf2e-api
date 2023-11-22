@@ -58,9 +58,11 @@ class ArmourController extends Controller
      * @param  \App\Models\Armour  $armour
      * @return ArmourResource
      */
-    public function update(UpdateArmourRequest $request, Armour $armour)
+    public function update(UpdateArmourRequest $request, Armour $armour, ArmourService $service)
     {
-        //
+        $updated = $service->update($request, $armour);
+
+        return new ArmourResource($armour);
     }
 
     /**
@@ -69,8 +71,10 @@ class ArmourController extends Controller
      * @param  \App\Models\Armour  $armour
      * @return ArmourResource
      */
-    public function destroy(Armour $armour)
+    public function destroy(Armour $armour, ArmourService $service)
     {
-        //
+        $service->destroy($armour);
+
+        return new JsonResponse(null, 204);
     }
 }
