@@ -8,6 +8,7 @@ use App\Http\Resources\CharacterSavingThrowResource;
 use App\Http\Resources\CharacterMovementResource;
 use App\Http\Resources\CharacterPerceptionResource;
 use App\Http\Resources\CharacterHealthResource;
+use App\Http\Resources\CharacterArmourResource;
 
 class CharacterResource extends JsonResource
 {
@@ -76,6 +77,7 @@ class CharacterResource extends JsonResource
           'items' => $this->items->map(function ($item) {
               return $item->item;
           }),
+          'armours' => CharacterArmourResource::collection($this->armours),
           'user' => [
               'id' => $this->user->id,
              'name' => $this->user->name

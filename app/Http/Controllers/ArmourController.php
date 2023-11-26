@@ -20,9 +20,11 @@ class ArmourController extends Controller
      *
      * @return ResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $armours = Armour::query()->get();
+        $armours = Armour::query()
+            ->where('name', 'like', '%'. strtolower($request->query->get('name')) . '%')
+            ->get();
 
         return ArmourResource::collection($armours);
     }
