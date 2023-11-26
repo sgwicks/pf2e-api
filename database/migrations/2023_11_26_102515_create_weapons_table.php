@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArmoursTable extends Migration
+class CreateWeaponsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateArmoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('armours', function (Blueprint $table) {
+        Schema::create('weapons', function (Blueprint $table) {
             $table->id();
 
             // Item attributes
@@ -24,15 +24,13 @@ class CreateArmoursTable extends Migration
             $table->float('bulk')->default(0);
             $table->float('price')->default(0);
 
-            // Armour attributes
-            $table->string('category');
-            $table->integer('armour_class')->default(0);
-            $table->integer('dex_cap')->nullable();
-            $table->integer('check_penalty')->default(0);
-            $table->integer('speed_penalty')->default(0);
-            $table->integer('strength')->default(0);
-            $table->string('traits')->nullable();
+            // Weapon attributes
+            $table->integer('damage_die_type')->default(6);
+            $table->integer('damage_die_amount')->default(1);
+            $table->integer('hands')->default(1);
             $table->string('group')->nullable();
+            $table->string('traits')->nullable();
+            $table->string('damage_type')->default('bludgeoning');
 
             $table->timestamps();
         });
@@ -45,6 +43,6 @@ class CreateArmoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('armours');
+        Schema::dropIfExists('weapons');
     }
 }
