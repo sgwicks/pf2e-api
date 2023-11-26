@@ -78,6 +78,7 @@ class CharacterResource extends JsonResource
               return $item->item;
           }),
           'armours' => CharacterArmourResource::collection($this->armours),
+          'weapons' => CharacterWeaponResource::collection($this->weapons)->sortBy('id')->all(),
           'user' => [
               'id' => $this->user->id,
              'name' => $this->user->name
