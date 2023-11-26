@@ -18,19 +18,22 @@ class CreateWeaponsTable extends Migration
 
             // Item attributes
             $table->string('name')->unique();
-            $table->integer('hardness')->default(0);
-            $table->integer('max_hp')->default(0);
-            $table->integer('break_threshold')->default(0);
+            $table->tinyInteger('hardness')->default(0);
+            $table->tinyInteger('max_hp')->default(0);
+            $table->tinyInteger('break_threshold')->default(0);
             $table->float('bulk')->default(0);
             $table->float('price')->default(0);
 
             // Weapon attributes
-            $table->integer('damage_die_type')->default(6);
-            $table->integer('damage_die_amount')->default(1);
-            $table->integer('hands')->default(1);
-            $table->string('group')->nullable();
+            $table->char('category', 1)->default('S');
+            $table->integer('range')->default(5);
+            $table->tinyInteger('damage_die_type')->default(6);
+            $table->tinyInteger('damage_die_amount')->default(1);
+            $table->char('damage_type', 1)->default('B');
+            $table->tinyInteger('reload')->default(0);
+            $table->tinyInteger('hands')->default(1);
+            $table->string('group');
             $table->string('traits')->nullable();
-            $table->string('damage_type')->default('bludgeoning');
 
             $table->timestamps();
         });

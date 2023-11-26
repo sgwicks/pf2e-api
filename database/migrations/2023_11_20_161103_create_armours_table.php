@@ -18,19 +18,19 @@ class CreateArmoursTable extends Migration
 
             // Item attributes
             $table->string('name')->unique();
-            $table->integer('hardness')->default(0);
-            $table->integer('max_hp')->default(0);
-            $table->integer('break_threshold')->default(0);
+            $table->tinyInteger('hardness')->default(0);
+            $table->tinyInteger('max_hp')->default(0);
+            $table->tinyInteger('break_threshold')->default(0);
             $table->float('bulk')->default(0);
             $table->float('price')->default(0);
 
             // Armour attributes
-            $table->string('category');
-            $table->integer('armour_class')->default(0);
-            $table->integer('dex_cap')->nullable();
-            $table->integer('check_penalty')->default(0);
-            $table->integer('speed_penalty')->default(0);
-            $table->integer('strength')->default(0);
+            $table->char('category', 1);
+            $table->tinyInteger('armour_class')->default(0);
+            $table->tinyInteger('dex_cap')->nullable();
+            $table->tinyInteger('check_penalty')->default(0);
+            $table->tinyInteger('speed_penalty')->default(0);
+            $table->tinyInteger('strength')->default(0);
             $table->string('traits')->nullable();
             $table->string('group')->nullable();
 

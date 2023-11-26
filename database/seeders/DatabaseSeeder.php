@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FeatSeeder::class);
 
         $this->call(ItemSeeder::class);
+        $this->call(ArmourSeeder::class);
+        $this->call(WeaponSeeder::class);
 
         $this->call(CharacterSeeder::class);
     }

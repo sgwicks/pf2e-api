@@ -29,7 +29,7 @@ class StoreArmourRequest extends FormRequest
             'category' => [
                 'required',
                 'string',
-                Rule::in('unarmoured', 'light', 'medium', 'heavy')
+                Rule::in('U', 'L', 'M', 'H')
             ],
             'price' => 'numeric',
             'armour_class' => 'integer',

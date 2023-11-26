@@ -13,7 +13,7 @@ class UpdateCharacterWeaponRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateCharacterWeaponRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'weapon_id' => ['integer', 'required_without:weapon_name'],
+            'weapon_name' => ['string', 'required_without:weapon_id']
         ];
     }
 }

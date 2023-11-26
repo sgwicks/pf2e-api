@@ -22,7 +22,7 @@ class ArmourSeeder extends Seeder
         $data = [
             [
                 'name' => 'no_armor',
-                'category' => 'unarmoured',
+                'category' => 'U',
                 'price' => 0,
                 'armour_class' => 0,
                 'dex_cap' => null,
@@ -35,7 +35,7 @@ class ArmourSeeder extends Seeder
             ],
             [
                 'name' => 'padded_armor',
-                'category' => 'unarmoured',
+                'category' => 'U',
                 'price' => 0.2,
                 'armour_class' => 1,
                 'dex_cap' => 3,
@@ -48,7 +48,7 @@ class ArmourSeeder extends Seeder
             ],
             [
                 'name' => 'leather',
-                'category' => 'light',
+                'category' => 'L',
                 'price' => 2,
                 'armour_class' => 1,
                 'dex_cap' => 4,
@@ -61,7 +61,7 @@ class ArmourSeeder extends Seeder
             ],
             [
                 'name' => 'chain_mail',
-                'category' => 'medium',
+                'category' => 'M',
                 'price' => 6,
                 'armour_class' => 4,
                 'dex_cap' => 1,
@@ -74,7 +74,7 @@ class ArmourSeeder extends Seeder
             ],
             [
                 'name' => 'full_plate',
-                'category' => 'heavy',
+                'category' => 'H',
                 'price' => 30,
                 'armour_class' => 6,
                 'dex_cap' => 0,

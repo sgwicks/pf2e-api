@@ -4,61 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCharacterWeaponRequest;
 use App\Http\Requests\UpdateCharacterWeaponRequest;
+use App\Http\Resources\CharacterWeaponResource;
 use App\Models\CharacterWeapon;
+use App\Models\Character;
+use App\Services\CharacterWeaponService;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CharacterWeaponController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return CharacterWeaponResource
      */
-    public function index()
+    public function index(Character $character)
     {
-        //
-    }
+        $weapons = $character->weapons()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return CharacterWeaponResource::collection($weapons);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCharacterWeaponRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return CharacterWeaponResource
      */
-    public function store(StoreCharacterWeaponRequest $request)
+    public function store(StoreCharacterWeaponRequest $request, Character $character, CharacterWeaponService $service)
     {
-        //
+        $created = $service->add($request, $character);
+
+        return new CharacterWeaponResource($created);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\CharacterWeapon  $characterWeapon
-     * @return \Illuminate\Http\Response
+     * @return CharacterWeaponResource
      */
-    public function show(CharacterWeapon $characterWeapon)
+    public function show(Character $character, string $characterWeapon)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CharacterWeapon  $characterWeapon
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CharacterWeapon $characterWeapon)
-    {
-        //
+        $weapon = $character->weapons()->where('id', $characterWeapon)->firstOrFail();
+        return new CharacterWeaponResource($weapon);
     }
 
     /**
@@ -66,21 +54,29 @@ class CharacterWeaponController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCharacterWeaponRequest  $request
      * @param  \App\Models\CharacterWeapon  $characterWeapon
-     * @return \Illuminate\Http\Response
+     * @return CharacterWeaponResource
      */
-    public function update(UpdateCharacterWeaponRequest $request, CharacterWeapon $characterWeapon)
+    public function update(UpdateCharacterWeaponRequest $request, Character $character, string $characterWeapon, CharacterWeaponService $service)
     {
-        //
+        $weapon = $character->weapons()->where('id', $characterWeapon)->firstOrFail();
+
+        $service->switch($request, $weapon);
+
+        return new CharacterWeaponResource($weapon);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\CharacterWeapon  $characterWeapon
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(CharacterWeapon $characterWeapon)
+    public function destroy(Character $character, string $characterWeapon, CharacterWeaponService $service)
     {
-        //
+        $weapon = $character->weapons()->where('id', $characterWeapon)->firstOrFail();
+
+        $service->remove($weapon);
+
+        return new JsonResponse(null, 204);
     }
 }
