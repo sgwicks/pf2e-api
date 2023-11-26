@@ -65,4 +65,9 @@ class Character extends Model
     {
         return $this->hasOne(CharacterHealth::class, 'character_id');
     }
+
+    public function armours()
+    {
+        return $this->hasMany(CharacterArmour::class, 'character_id');
+    }
 }
