@@ -25,6 +25,11 @@ class UserResource extends JsonResource
     {
         $characters = Character::query()->where('user_id', $this->id)->get();
 
-        return CharacterResource::collection($characters);
+        return CharacterResource::collection($characters)->map(function ($character) {
+            return [
+                'id' => $character['id'],
+                'name' => $character['name']
+            ];
+        });
     }
 }
