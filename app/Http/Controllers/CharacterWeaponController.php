@@ -50,13 +50,13 @@ class CharacterWeaponController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Replace the specified resource in storage with a new one.
      *
      * @param  \App\Http\Requests\UpdateCharacterWeaponRequest  $request
      * @param  \App\Models\CharacterWeapon  $characterWeapon
      * @return CharacterWeaponResource
      */
-    public function update(UpdateCharacterWeaponRequest $request, Character $character, string $characterWeapon, CharacterWeaponService $service)
+    public function replace(UpdateCharacterWeaponRequest $request, Character $character, string $characterWeapon, CharacterWeaponService $service)
     {
         $weapon = $character->weapons()->where('id', $characterWeapon)->firstOrFail();
 
