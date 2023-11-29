@@ -11,6 +11,8 @@ use App\Http\Controllers\CharacterSavingThrowController;
 use App\Http\Controllers\CharacterMovementController;
 use App\Http\Controllers\CharacterPerceptionController;
 use App\Http\Controllers\CharacterHealthController;
+use App\Http\Controllers\CharacterWeaponController;
+use \App\Http\Controllers\CharacterProficiencyController;
 
 Route::prefix('characters')
     ->name('characters.')
@@ -59,7 +61,7 @@ Route::prefix('characters')
                         Route::patch('/{character_class}', [CharacterCharacterClassController::class, 'update'])->name('update');
                         Route::delete('/{character_class}', [CharacterCharacterClassController::class, 'destroy'])->name('destroy');
                     });
-                
+
                 Route::prefix('/armours')
                     ->name('armours.')
                     ->group(function () {
@@ -68,7 +70,18 @@ Route::prefix('characters')
                         Route::get('/{armour}', [CharacterArmourController::class, 'show'])->name('show');
                         Route::delete('/{armour}', [CharacterArmourController::class, 'destroy'])->name('destroy');
                     });
-                
+
+                Route::prefix('/weapons')
+                    ->name('weapons.')
+                    ->group(function () {
+                        Route::get('/', [CharacterWeaponController::class, 'index'])->name('index');
+                        Route::post('/', [CharacterWeaponController::class, 'store'])->name('store');
+                        Route::get('/{weapon}', [CharacterWeaponController::class, 'show'])->name('show');
+                        Route::put('/{weapon}', [CharacterWeaponController::class, 'replace'])->name('replace');
+                        Route::patch('/{weapon}', [CharacterWeaponController::class, 'update'])->name('update');
+                        Route::delete('/{weapon}', [CharacterWeaponController::class, 'destroy'])->name('destroy');
+                    });
+
                 Route::prefix('/saving_throws')
                     ->name('saving_throws.')
                     ->group(function () {
@@ -91,6 +104,12 @@ Route::prefix('characters')
                     ->name('health.')
                     ->group(function () {
                         Route::patch('/', [CharacterHealthController::class, 'update'])->name('update');
+                    });
+
+                Route::prefix('/proficiency')
+                    ->name('proficiency.')
+                    ->group(function () {
+                        Route::patch('/', [CharacterProficiencyController::class, 'update'])->name('update');
                     });
                 });
     });

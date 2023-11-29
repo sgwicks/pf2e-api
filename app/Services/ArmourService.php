@@ -42,7 +42,7 @@ class ArmourService
      */
     public function update(UpdateArmourRequest $request, Armour $armour): bool
     {
-        $updated = Armour::query()->create([
+        $updated = $armour->update([
             'name' => $request->name ?? $armour->name,
             'category' => $request->category ?? $armour->category,
             'price' => $request->price ?? $armour->price,

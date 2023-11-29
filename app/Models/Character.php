@@ -70,4 +70,14 @@ class Character extends Model
     {
         return $this->hasMany(CharacterArmour::class, 'character_id');
     }
+
+    public function weapons()
+    {
+        return $this->hasMany(CharacterWeapon::class, 'character_id');
+    }
+
+    public function proficiency()
+    {
+        return $this->hasOne(CharacterProficiency::class, 'character_id');
+    }
 }
