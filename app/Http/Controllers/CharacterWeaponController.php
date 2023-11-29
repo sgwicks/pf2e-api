@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReplaceCharacterWeaponRequest;
 use App\Http\Requests\StoreCharacterWeaponRequest;
 use App\Http\Requests\UpdateCharacterWeaponRequest;
 use App\Http\Resources\CharacterWeaponResource;
@@ -50,13 +51,31 @@ class CharacterWeaponController extends Controller
     }
 
     /**
-     * Replace the specified resource in storage with a new one.
+     * Update the specified resource.
      *
-     * @param  \App\Http\Requests\UpdateCharacterWeaponRequest  $request
-     * @param  \App\Models\CharacterWeapon  $characterWeapon
+     * @param  UpdateCharacterWeaponRequest  $request
+     * @param  Character  $character
+     * @param string $characterWeapon
      * @return CharacterWeaponResource
      */
-    public function replace(UpdateCharacterWeaponRequest $request, Character $character, string $characterWeapon, CharacterWeaponService $service)
+    public function update(UpdateCharacterWeaponRequest $request, Character $character, string $characterWeapon, CharacterWeaponService $service)
+    {
+        $weapon = $character->weapons()->where('id', $characterWeapon)->firstOrFail();
+
+        $service->update($request, $weapon);
+
+        return new CharacterWeaponResource($weapon);
+    }
+
+    /**
+     * Replace the specified resource in storage with a new one.
+     *
+     * @param  ReplaceCharacterWeaponRequest  $request
+     * @param  Character  $character
+     * @param string $characterWeapon
+     * @return CharacterWeaponResource
+     */
+    public function replace(ReplaceCharacterWeaponRequest $request, Character $character, string $characterWeapon, CharacterWeaponService $service)
     {
         $weapon = $character->weapons()->where('id', $characterWeapon)->firstOrFail();
 

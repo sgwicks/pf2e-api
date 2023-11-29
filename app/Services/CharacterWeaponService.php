@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralJsonException;
+use App\Http\Requests\ReplaceCharacterWeaponRequest;
 use App\Http\Requests\StoreCharacterWeaponRequest;
 use App\Http\Requests\UpdateCharacterWeaponRequest;
 use App\Models\Character;
@@ -35,7 +36,30 @@ class CharacterWeaponService
         return $characterWeapon;
     }
 
-    public function switch(UpdateCharacterWeaponRequest $request, CharacterWeapon $weapon)
+    public function update(UpdateCharacterWeaponRequest $request, CharacterWeapon $weapon)
+    {
+        $updated = $weapon->update([
+            'category' => $request->category ?? $weapon->category,
+            'range' => $request->range ?? $weapon->range,
+            'damage_die_type' => $request->damage_die_type ?? $weapon->damage_die_type,
+            'damage_die_amount' => $request->damage_die_amount ?? $weapon->damage_die_amount,
+            'damage_type' => $request->damage_type ?? $weapon->damage_type,
+            'hands' => $request->hands ?? $weapon->hands,
+            'reload' => $request->reload ?? $weapon->reload,
+            'price' => $request->price ?? $weapon->price,
+            'bulk' => $request->bulk ?? $weapon->bulk,
+            'group' => $request->group ?? $weapon->group,
+            'traits' => $request->traits ?? $weapon->traits
+        ]);
+
+        if (!$updated) {
+            throw new GeneralJsonException('Weapon not updated');
+        }
+
+        return $updated;
+    }
+
+    public function switch(ReplaceCharacterWeaponRequest $request, CharacterWeapon $weapon)
     {
         $updated = $weapon->update([
             'weapon_id' => $request->weapon_id

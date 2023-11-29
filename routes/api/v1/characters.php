@@ -78,6 +78,7 @@ Route::prefix('characters')
                         Route::post('/', [CharacterWeaponController::class, 'store'])->name('store');
                         Route::get('/{weapon}', [CharacterWeaponController::class, 'show'])->name('show');
                         Route::put('/{weapon}', [CharacterWeaponController::class, 'replace'])->name('replace');
+                        Route::patch('/{weapon}', [CharacterWeaponController::class, 'update'])->name('update');
                         Route::delete('/{weapon}', [CharacterWeaponController::class, 'destroy'])->name('destroy');
                     });
 
