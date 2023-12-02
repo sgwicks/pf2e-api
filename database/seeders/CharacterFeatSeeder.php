@@ -17,9 +17,6 @@ class CharacterFeatSeeder extends Seeder
      */
     public function run(Character $character)
     {
-        $feat = Feat::query()->inRandomOrder()->first();
-        CharacterFeat::factory()->for($character)->state([
-            'feat_id' => $feat->id,
-        ])->create();
+        //
     }
 }

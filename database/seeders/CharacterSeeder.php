@@ -27,11 +27,7 @@ class CharacterSeeder extends Seeder
             $user = User::find($character->id);
             $character->user()->associate($user);
             $this->callWith([
-                CharacterFeatSeeder::class,
                 CharacterCharacterClassSeeder::class,
-                CharacterSkillSeeder::class,
-                CharacterActionSeeder::class,
-                CharacterItemSeeder::class,
                 CharacterSavingThrowSeeder::class,
                 CharacterMovementSeeder::class,
                 CharacterPerceptionSeeder::class,

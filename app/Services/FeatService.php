@@ -19,7 +19,10 @@ class FeatService
     {
         $created = Feat::query()->create([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'level' => $request->level,
+            'traits' => $request->traits,
+            'prerequisites' => $request->prerequisites
         ]);
 
         return $created;
@@ -35,7 +38,10 @@ class FeatService
     {
         $updated = $feat->update([
             'name' => $request->name ?? $feat->name,
-            'description' => $request->description ?? $feat->description
+            'description' => $request->description ?? $feat->description,
+            'level' => $request->level ?? $feat->level,
+            'traits' => $request->traits ?? $feat->traits,
+            'prerequisites' => $request->prerequisite ?? $feat->prerequisites
         ]);
 
         if (!$updated) {

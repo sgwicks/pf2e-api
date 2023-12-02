@@ -15,7 +15,10 @@ class FeatResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->nameTitleCase,
-            'description' => $this->description
+            'description' => $this->description,
+            'level' => $this->level,
+            'traits' => $this->traits,
+            'prerequisites' => $this->prerequisites
         ];
     }
 }

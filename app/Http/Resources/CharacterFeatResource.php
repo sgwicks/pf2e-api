@@ -16,7 +16,10 @@ class CharacterFeatResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->feat->nameTitleCase,
-            'description' => $this->feat->description
+            'description' => $this->feat->description,
+            'traits' => $this->traits,
+            'chosen_level' => $this->chosen_level,
+            'type' => $this->type
         ];
     }
 }

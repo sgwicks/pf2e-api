@@ -26,7 +26,9 @@ class StoreCharacterFeatRequest extends FormRequest
     {
         return [
             'name' => 'required_without:feat_id',
-            'feat_id' => 'required_without:name'
+            'feat_id' => 'required_without:name',
+            'chosen_level' => ['required', 'integer'],
+            'type' => ['required', 'string', Rule::in('G', 'S', 'A', 'C', 'B')]
         ];
     }
 }
