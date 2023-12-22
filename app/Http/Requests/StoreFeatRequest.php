@@ -24,7 +24,11 @@ class StoreFeatRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'level' => ['required', 'integer'],
+            'traits' => 'array',
+            'prerequisites' => 'array'
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\StoreFeatRequest;
 use App\Http\Requests\UpdateFeatRequest;
 use App\Http\Resources\FeatResource;
+use App\Models\Character;
 use App\Models\Feat;
 use App\Services\FeatService;
 use Illuminate\Http\JsonResponse;
@@ -19,9 +20,41 @@ class FeatController extends Controller
      *
      * @return ResourceCollection
      */
-    public function index(): ResourceCollection
+    public function index(Request $request): ResourceCollection
     {
-        $feats = Feat::query()->get();
+        if (!$request->query->get('character_id')) {
+            // This is a general search, return all feats
+            $feats = Feat::query()
+                ->where('name', 'LIKE', '%' . strtolower($request->query->get('name')) . '%')
+                ->get();
+
+            return FeatResource::collection($feats);
+        }
+
+        // Get the character who searching for feats
+        $character = Character::query()->where('id', $request->query->get('character_id'))->first();
+
+        switch (strtoupper($request->query->get('type'))) {
+            case 'C':
+                $trait = $character->characterClasses->first()->characterClass->name;
+                break;
+            case 'A':
+                $trait = strtolower($character->ancestry);
+                break;
+            case 'S':
+                $trait = 'skill';
+                break;
+            case 'B':
+            case 'G':
+            default:
+                $trait = 'general';
+        }
+
+        $feats = Feat::query()
+            ->where('name', 'LIKE', '%' . strtolower($request->query->get('name')) . '%')
+            ->where('level', '<=', $request->query->get('level'))
+            ->where('traits', 'LIKE', '%' . $trait . '%')
+            ->get();
 
         return FeatResource::collection($feats);
     }

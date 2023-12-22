@@ -29,14 +29,6 @@ class CharacterResource extends JsonResource
             ];
         })->sortBy('name')->values();
 
-        $combinedFeats = $this->feats->map(function ($feat) {
-            return [
-                'id' => $feat->id,
-                'name' => $feat->feat->nameTitleCase,
-                'description' => $feat->feat->description
-            ];
-        });
-
         $combinedCharacterClasses = $this->characterClasses->map(function($characterClass) {
             return [
                 'id' => $characterClass->id,
@@ -71,7 +63,7 @@ class CharacterResource extends JsonResource
           ],
           'saving_throws' => new CharacterSavingThrowResource($this->savingThrows),
           'skills' => $combinedSkills,
-          'feats' => $combinedFeats,
+          'feats' => CharacterFeatResource::collection($this->feats),
           'actions' => $this->actions,
           'character_classes' => $combinedCharacterClasses,
           'items' => $this->items->map(function ($item) {

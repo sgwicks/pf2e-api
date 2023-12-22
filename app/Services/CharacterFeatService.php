@@ -28,7 +28,9 @@ class CharacterFeatService
         }
 
         $characterFeat = $character->feats()->create([
-            'feat_id' => $feat->id
+            'feat_id' => $feat->id,
+            'chosen_level' => $request->chosen_level,
+            'type' => $request->type
         ]);
 
         return $characterFeat;
