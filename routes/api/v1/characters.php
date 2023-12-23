@@ -48,7 +48,7 @@ Route::prefix('characters')
                         Route::get('/', [CharacterActionController::class, 'index'])->name('index');
                         Route::post('/', [CharacterActionController::class, 'store'])->name('store');
                         Route::get('/{character_action}', [CharacterActionController::class, 'show'])->name('show');
-                        Route::patch('/{character_action', [CharacterActionController::class, 'update'])->name('update');
+                        Route::patch('/{character_action}', [CharacterActionController::class, 'update'])->name('update');
                         Route::delete('/{character_action}', [CharacterActionController::class, 'destroy'])->name('destroy');
                     });
 

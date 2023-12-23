@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCharacterActionRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateCharacterActionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,15 @@ class UpdateCharacterActionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'description' => 'string',
+            'action' => ['string', Rule::in('bonus', 'single', 'double', 'triple', 'reaction')],
+            'traits' => 'array',
+            'source_book' => ['string', 'required_with:source_page'],
+            'source_page' => ['integer', 'required_with:source_book'],
+            'trigger' => 'string',
+            'is_spell' => 'boolean',
+            'components' => 'array',
         ];
     }
 }
