@@ -18,6 +18,7 @@ class CharacterActionService
             'description' => $request->description,
             'action' => $request->action ?? 'single',
             'traits' => $request->traits,
+            'trigger' => $request->trigger,
             'source_book' => $request->source_book,
             'source_page' => $request->source_page,
             'is_spell' => $request->is_spell ?? false,
@@ -27,13 +28,14 @@ class CharacterActionService
         return $action;
     }
 
-    public function update(UpdateCharacterActionRequest $request, Model $characterAction)
+    public function update(UpdateCharacterActionRequest $request, CharacterAction $characterAction)
     {
         $updated = $characterAction->update([
             'name' => $request->name ?? $characterAction->name,
             'description' => $request->description  ?? $characterAction->description,
             'action' => $request->action ?? $characterAction->action,
             'traits' => $request->traits  ?? $characterAction->traits,
+            'trigger' => $request->trigger ?? $characterAction->trigger,
             'source_book' => $request->source_book  ?? $characterAction->source_book,
             'source_page' => $request->source_page  ?? $characterAction->source_page,
             'is_spell' => $request->is_spell  ?? $characterAction->is_spell,

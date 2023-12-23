@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Traits\HasName;
+use App\Traits\HasTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CharacterAction extends Model
 {
-    use HasFactory;
-    use HasName;
+    use HasFactory, HasName, HasTraits;
 
     protected $guarded = [
         'id',
@@ -25,6 +25,7 @@ class CharacterAction extends Model
         'traits',
         'source_book',
         'source_page',
+        'trigger',
         'is_spell',
         'components',
 

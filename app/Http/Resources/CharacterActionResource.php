@@ -18,6 +18,7 @@ class CharacterActionResource extends JsonResource
             'description' => $this->description,
             'action' => $this->action,
             'traits' => $this->traits,
+            'trigger' => $this->trigger,
             'source_book' => $this->source_book,
             'source_page' => $this->source_page,
             'is_spell' => $this->is_spell,
