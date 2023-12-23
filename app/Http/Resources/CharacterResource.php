@@ -64,7 +64,7 @@ class CharacterResource extends JsonResource
           'saving_throws' => new CharacterSavingThrowResource($this->savingThrows),
           'skills' => $combinedSkills,
           'feats' => CharacterFeatResource::collection($this->feats),
-          'actions' => $this->actions,
+          'actions' => CharacterActionResource::collection($this->actions),
           'character_classes' => $combinedCharacterClasses,
           'items' => $this->items->map(function ($item) {
               return $item->item;
