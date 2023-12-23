@@ -19,7 +19,10 @@ class CharacterProficiencyResource extends JsonResource
             'heavy' => $this->heavy,
             'unarmed' => $this->unarmed,
             'simple' => $this->simple,
-            'martial' => $this->martial
+            'martial' => $this->martial,
+            'class_dc' => $this->class_dc,
+            'spell_dc' => $this->spell_dc,
+            'spell_attack' => $this->spell_attack
         ];
     }
 }

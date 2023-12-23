@@ -31,7 +31,10 @@ class UpdateCharacterProficiencyRequest extends FormRequest
             'heavy' => ['integer', Rule::in(0, 2, 4, 6, 8)],
             'unarmed' => ['integer', Rule::in(0, 2, 4, 6, 8)],
             'simple' => ['integer', Rule::in(0, 2, 4, 6, 8)],
-            'martial' => ['integer', Rule::in(0, 2, 4, 6, 8)]
+            'martial' => ['integer', Rule::in(0, 2, 4, 6, 8)],
+            'class_dc' => ['integer', Rule::in(0, 2, 4, 6, 8)],
+            'spell_dc' => ['integer', Rule::in(0, 2, 4, 6, 8)],
+            'spell_attack' => ['integer', Rule::in(0, 2, 4, 6, 8)]
         ];
     }
 }
