@@ -13,7 +13,7 @@ class StoreCharacterShieldRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreCharacterShieldRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'shield_id' => ['required_without:shield_name'],
+            'shield_name' => ['required_without:shield_id']
         ];
     }
 }

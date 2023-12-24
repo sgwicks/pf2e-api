@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCharacterShieldRequest;
 use App\Http\Requests\UpdateCharacterShieldRequest;
+use App\Models\Character;
 use App\Models\CharacterShield;
+use App\Http\Resources\CharacterShieldResource;
+use App\Services\CharacterShieldService;
 
 class CharacterShieldController extends Controller
 {
@@ -19,24 +22,18 @@ class CharacterShieldController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCharacterShieldRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreCharacterShieldRequest  $request
+     * @param Character $character
+     * @param CharacterShieldService $service
+     * @return CharacterShieldResource
      */
-    public function store(StoreCharacterShieldRequest $request)
+    public function store(StoreCharacterShieldRequest $request, Character $character, CharacterShieldService $service)
     {
-        //
+        $shield = $service->add($request, $character);
+
+        return new CharacterShieldResource($shield);
     }
 
     /**
