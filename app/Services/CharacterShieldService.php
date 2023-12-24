@@ -34,7 +34,10 @@ class CharacterShieldService
 
     public function update(UpdateCharacterShieldRequest $request, CharacterShield $shield)
     {
-        $updated = $shield->update();
+        $updated = $shield->update([
+            'raised' => $request->raised ?? $shield->raised,
+            'current_hp' => $request->current_hp ?? $shield->current_hp
+        ]);
 
         if (!$updated) {
             throw new GeneralJsonException('Shield not updated');

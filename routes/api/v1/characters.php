@@ -83,14 +83,13 @@ Route::prefix('characters')
                         Route::delete('/{weapon}', [CharacterWeaponController::class, 'destroy'])->name('destroy');
                     });
 
-                Route::prefix('/shields')
-                    ->name('shields.')
+                Route::prefix('/shield')
+                    ->name('shield.')
                     ->group(function () {
                         Route::post('/', [CharacterShieldController::class, 'store'])->name('store');
-                        Route::get('/{shield}', [CharacterShieldController::class, 'show'])->name('show');
                         Route::put('/', [CharacterShieldController::class, 'replace'])->name('replace');
-                        Route::patch('/{shield}', [CharacterShieldController::class, 'update'])->name('update');
-                        Route::delete('/{shield}', [CharacterShieldController::class, 'destroy'])->name('destroy');
+                        Route::patch('/', [CharacterShieldController::class, 'update'])->name('update');
+                        Route::delete('/', [CharacterShieldController::class, 'destroy'])->name('destroy');
                     });
 
                 Route::prefix('/saving_throws')

@@ -49,10 +49,26 @@ class CharacterShieldController extends Controller
     }
 
     /**
+     * @param UpdateCharacterShieldRequest $request
+     * @param Character $character
+     * @param CharacterShieldService $service
+     * @return CharacterShieldResource
+     */
+    public function update(UpdateCharacterShieldRequest $request, Character $character, CharacterShieldService $service)
+    {
+        $shield = $character->shield;
+
+        $service->update($request, $shield);
+
+        return new CharacterShieldResource($shield);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  ReplaceCharacterShieldRequest  $request
      * @param Character $character
+     * @param CharacterShieldService $service
      * @return CharacterShieldResource
      */
     public function replace(ReplaceCharacterShieldRequest $request, Character $character, CharacterShieldService $service)
