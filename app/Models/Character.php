@@ -76,6 +76,11 @@ class Character extends Model
         return $this->hasMany(CharacterWeapon::class, 'character_id');
     }
 
+    public function shield()
+    {
+        return $this->hasOne(CharacterShield::class, 'character_id');
+    }
+
     public function proficiency()
     {
         return $this->hasOne(CharacterProficiency::class, 'character_id');

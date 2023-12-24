@@ -12,6 +12,7 @@ use App\Http\Controllers\CharacterMovementController;
 use App\Http\Controllers\CharacterPerceptionController;
 use App\Http\Controllers\CharacterHealthController;
 use App\Http\Controllers\CharacterWeaponController;
+use App\Http\Controllers\CharacterShieldController;
 use \App\Http\Controllers\CharacterProficiencyController;
 
 Route::prefix('characters')
@@ -80,6 +81,15 @@ Route::prefix('characters')
                         Route::put('/{weapon}', [CharacterWeaponController::class, 'replace'])->name('replace');
                         Route::patch('/{weapon}', [CharacterWeaponController::class, 'update'])->name('update');
                         Route::delete('/{weapon}', [CharacterWeaponController::class, 'destroy'])->name('destroy');
+                    });
+
+                Route::prefix('/shield')
+                    ->name('shield.')
+                    ->group(function () {
+                        Route::post('/', [CharacterShieldController::class, 'store'])->name('store');
+                        Route::put('/', [CharacterShieldController::class, 'replace'])->name('replace');
+                        Route::patch('/', [CharacterShieldController::class, 'update'])->name('update');
+                        Route::delete('/', [CharacterShieldController::class, 'destroy'])->name('destroy');
                     });
 
                 Route::prefix('/saving_throws')
