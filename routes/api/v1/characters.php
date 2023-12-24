@@ -88,7 +88,7 @@ Route::prefix('characters')
                     ->group(function () {
                         Route::post('/', [CharacterShieldController::class, 'store'])->name('store');
                         Route::get('/{shield}', [CharacterShieldController::class, 'show'])->name('show');
-                        Route::put('/{shield}', [CharacterShieldController::class, 'replace'])->name('replace');
+                        Route::put('/', [CharacterShieldController::class, 'replace'])->name('replace');
                         Route::patch('/{shield}', [CharacterShieldController::class, 'update'])->name('update');
                         Route::delete('/{shield}', [CharacterShieldController::class, 'destroy'])->name('destroy');
                     });

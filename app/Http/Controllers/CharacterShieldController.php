@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReplaceCharacterShieldRequest;
 use App\Http\Requests\StoreCharacterShieldRequest;
 use App\Http\Requests\UpdateCharacterShieldRequest;
 use App\Models\Character;
@@ -48,26 +49,19 @@ class CharacterShieldController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CharacterShield  $characterShield
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CharacterShield $characterShield)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCharacterShieldRequest  $request
-     * @param  \App\Models\CharacterShield  $characterShield
-     * @return \Illuminate\Http\Response
+     * @param  ReplaceCharacterShieldRequest  $request
+     * @param Character $character
+     * @return CharacterShieldResource
      */
-    public function update(UpdateCharacterShieldRequest $request, CharacterShield $characterShield)
+    public function replace(ReplaceCharacterShieldRequest $request, Character $character, CharacterShieldService $service)
     {
-        //
+        $shield = $character->shield;
+
+        $service->switch($request, $shield);
+
+        return new CharacterShieldResource($shield);
     }
 
     /**
