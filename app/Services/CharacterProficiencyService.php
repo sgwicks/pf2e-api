@@ -24,6 +24,9 @@ class CharacterProficiencyService
             'unarmed' => $request->unarmed ?? $characterProficiency->unarmed,
             'simple' => $request->simple ?? $characterProficiency->simple,
             'martial' => $request->martial ?? $characterProficiency->martial,
+            'class_dc' => $request->class_dc ?? $characterProficiency->class_dc,
+            'spell_dc' => $request->spell_dc ?? $characterProficiency->spell_dc,
+            'spell_attack' => $request->spell_attack ?? $characterProficiency->spell_attack
         ]);
 
         if (!$updated) {
