@@ -12,7 +12,7 @@ class CharacterClassesImport implements ToModel, WithHeadingRow
     {
         return new CharacterClass([
             'name' => $row['name'],
-            'key_ability' => array($row['key_ability']),
+            'key_ability' => explode("|", $row['key_ability']),
             'hitPoints' => $row['hit_points']
         ]);
     }
