@@ -6,12 +6,14 @@ use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\StoreFeatRequest;
 use App\Http\Requests\UpdateFeatRequest;
 use App\Http\Resources\FeatResource;
+use App\Imports\FeatsImport;
 use App\Models\Character;
 use App\Models\Feat;
 use App\Services\FeatService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FeatController extends Controller
 {
@@ -113,5 +115,19 @@ class FeatController extends Controller
         $service->destroy($feat);
 
         return new JsonResponse(null, 204);
+    }
+
+    /**
+     * Bulk upload feats from csv
+     * 
+     * @param Request $request
+     */
+    public function bulkUpload(Request $request)
+    {
+        Excel::import(new FeatsImport(), $request->file('file'));
+
+        $feats = Feat::query()->get();
+
+        return FeatResource::collection($feats);
     }
 }
