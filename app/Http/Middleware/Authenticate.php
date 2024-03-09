@@ -22,7 +22,7 @@ class Authenticate extends Middleware
         ];
 
         if (!$token = auth()->attempt($credentials)) {
-            throw new GeneralJsonException('Incorrect username or password');
+            return response(null, 401);
         }
 
         return $next($request)->header('Authorization', 'Bearer '.$token);

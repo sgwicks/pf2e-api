@@ -13,17 +13,24 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
-
     public function login(LoginRequest $request, AuthService $service)
     {
         $user = $service->login($request);
 
         return new UserResource($user);
+    }
+
+    public function refresh(Request $request)
+    {
+        $token = auth()->refresh();
+        return response()->noContent()->header('Authorization', $token);
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        return response()->noContent();
     }
 
     protected function respondWithToken($token)
