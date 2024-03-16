@@ -23,7 +23,6 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         $token = auth()->refresh();
-        dump($request->getUser());
         return response()->noContent()->header('Authorization', $token);
     }
 
