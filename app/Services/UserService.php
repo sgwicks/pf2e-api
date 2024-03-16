@@ -6,9 +6,11 @@ use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -21,8 +23,10 @@ class UserService
         $user = User::query()->create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
+
+        $user->roles()->save(Role::query()->firstWhere('role', 'user'));
 
         return $user;
     }
@@ -35,7 +39,7 @@ class UserService
         $updated = $user->update([
            'name' => $request->name ?? $user->name,
            'email' => $request->email ?? $user->email,
-           'password' => $request->password ?? $user->password
+           'password' => Hash::make($request->password) ?? $user->password
         ]);
 
         if (!$updated) {

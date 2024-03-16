@@ -46,6 +46,10 @@ class Kernel extends HttpKernel
             'auth',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'unauthed' => [
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]
     ];
 
     /**

@@ -7,20 +7,36 @@ use App\Http\Requests\UpdateCharacterRequest;
 use App\Http\Requests\UpdateCharacterSkillRequest;
 use App\Models\Character;
 use App\Models\CharacterSkill;
+use App\Models\CharacterSavingThrow;
+use App\Models\CharacterMovement;
+use App\Models\CharacterPerception;
+use App\Models\CharacterHealth;
+use App\Models\CharacterProficiency;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CharacterService
 {
 
-    public function create($request)
+    public function create($user, $request)
     {
-        $character = Character::query()->create([
-            'user_id' => $request->user_id
-        ]);
+        $character = DB::transaction(function () use ($user, $request) {
+            $character = $user->characters()->create([
+                'name' => $request->name
+            ]);
 
-        Skill::query()->pluck('name')->each(function ($name) use ($character) {
-            CharacterSkill::factory()->for($character)->state(['skill_name' => $name])->create();
+            CharacterSavingThrow::factory()->for($character)->create();
+            CharacterMovement::factory()->for($character)->create();
+            CharacterPerception::factory()->for($character)->create();
+            CharacterHealth::factory()->for($character)->create();
+            CharacterProficiency::factory()->for($character)->create();
+
+            Skill::query()->pluck('id')->each(function ($id) use ($character) {
+                CharacterSkill::factory()->for($character)->state(['skill_id' => $id])->create();
+            });
+
+            return $character;
         });
 
         return $character;

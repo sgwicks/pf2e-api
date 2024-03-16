@@ -24,7 +24,7 @@ class StoreCharacterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required'
         ];
     }
 }

@@ -22,6 +22,7 @@ class Authenticate extends Middleware
         ];
 
         if (!$token = auth()->attempt($credentials)) {
+            dump($token);
             return response(null, 401);
         }
 
