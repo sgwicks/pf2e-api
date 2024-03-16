@@ -6,6 +6,7 @@ use App\Exceptions\GeneralJsonException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,8 @@ class UserService
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->roles()->save(Role::query()->firstWhere('role', 'user'));
 
         return $user;
     }
