@@ -11,6 +11,5 @@ Route::prefix('weapons')
         Route::post('/', [WeaponController::class, 'store'])->name('store');
         Route::patch('/{weapon}', [WeaponController::class, 'update'])->name('update');
         Route::delete('/{weapon}', [WeaponController::class, 'destroy'])->name('destroy');
-
-        //        Route::post('/bulk-upload');
+        Route::post('/bulk-upload', [WeaponController::class, 'bulkUpload'])->name('bulkUpload');
     });

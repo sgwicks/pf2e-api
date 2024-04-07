@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreWeaponRequest;
 use App\Http\Requests\UpdateWeaponRequest;
 use App\Http\Resources\WeaponResource;
+use App\Imports\WeaponsImport;
 use App\Models\Weapon;
 use App\Services\WeaponService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class WeaponController extends Controller
@@ -77,5 +79,19 @@ class WeaponController extends Controller
         $service->destroy($weapon);
 
         return new JsonResponse(null, 204);
+    }
+
+    /**
+     * Bulk upload feats from csv
+     * 
+     * @param Request $request
+     */
+    public function bulkUpload(Request $request)
+    {
+        Excel::import(new WeaponsImport(), $request->file('file'));
+
+        $weapons = Weapon::query()->get();
+
+        return WeaponResource::collection($weapons);
     }
 }
