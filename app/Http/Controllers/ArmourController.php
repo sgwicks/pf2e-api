@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArmourRequest;
 use App\Http\Requests\UpdateArmourRequest;
 use App\Http\Resources\ArmourResource;
+use App\Imports\ArmoursImport;
 use App\Models\Armour;
 use App\Services\ArmourService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -78,5 +80,19 @@ class ArmourController extends Controller
         $service->destroy($armour);
 
         return new JsonResponse(null, 204);
+    }
+
+    /**
+     * Bulk upload feats from csv
+     * 
+     * @param Request $request
+     */
+    public function bulkUpload(Request $request)
+    {
+        Excel::import(new ArmoursImport(), $request->file('file'));
+
+        $armours = Armour::query()->get();
+
+        return ArmourResource::collection($armours);
     }
 }
