@@ -11,6 +11,5 @@ Route::prefix('armours')
         Route::post('/', [ArmourController::class, 'store'])->name('store');
         Route::patch('/{armour}', [ArmourController::class, 'update'])->name('update');
         Route::delete('/{armour}', [ArmourController::class, 'destroy'])->name('destroy');
-
-        //        Route::post('/bulk-upload');
+        Route::post('/bulk-upload', [ArmourController::class, 'bulkUpload'])->name('bulkUpload');
     });
