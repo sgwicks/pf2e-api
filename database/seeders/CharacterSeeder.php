@@ -37,6 +37,9 @@ class CharacterSeeder extends Seeder
             ],
                 ['character' => $character]
             );
+
+            $character->notes()->create(['body' => '']);
+
             $character->save();
         });
     }
