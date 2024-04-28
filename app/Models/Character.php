@@ -85,4 +85,9 @@ class Character extends Model
     {
         return $this->hasOne(CharacterProficiency::class, 'character_id');
     }
+
+    public function notes()
+    {
+        return $this->hasOne(CharacterNotes::class, 'character_id');
+    }
 }
