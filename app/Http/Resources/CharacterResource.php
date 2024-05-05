@@ -73,6 +73,7 @@ class CharacterResource extends JsonResource
           'weapons' => CharacterWeaponResource::collection($this->weapons)->sortBy('id')->all(),
           'shield' => new CharacterShieldResource($this->shield),
           'proficiencies' => new CharacterProficiencyResource($this->proficiency),
+          'notes' => new CharacterNotesResource($this->notes),
           'user' => [
               'id' => $this->user->id,
              'name' => $this->user->name

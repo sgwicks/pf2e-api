@@ -36,6 +36,8 @@ class CharacterService
                 CharacterSkill::factory()->for($character)->state(['skill_id' => $id])->create();
             });
 
+            $character->notes()->create(['body' => '']);
+
             return $character;
         });
 
