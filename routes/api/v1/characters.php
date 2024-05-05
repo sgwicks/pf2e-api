@@ -14,6 +14,7 @@ use App\Http\Controllers\CharacterHealthController;
 use App\Http\Controllers\CharacterWeaponController;
 use App\Http\Controllers\CharacterShieldController;
 use \App\Http\Controllers\CharacterProficiencyController;
+use \App\Http\Controllers\CharacterNotesController;
 
 Route::prefix('characters')
     ->name('characters.')
@@ -120,6 +121,13 @@ Route::prefix('characters')
                     ->name('proficiency.')
                     ->group(function () {
                         Route::patch('/', [CharacterProficiencyController::class, 'update'])->name('update');
+                    });
+                Route::prefix('/notes')
+                    ->name('notes')
+                    ->group(function () {
+                        Route::get('/', [CharacterNotesController::class, 'show'])->name('show');
+                        Route::post('/', [CharacterNotesController::class, 'store'])->name('store');
+                        Route::patch('/', [CharacterNotesController::class, 'update'])->name('update');
                     });
                 });
     });
