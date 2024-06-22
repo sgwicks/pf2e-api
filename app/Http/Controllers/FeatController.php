@@ -54,7 +54,7 @@ class FeatController extends Controller
 
         $feats = Feat::query()
             ->where('name', 'LIKE', '%' . strtolower($request->query->get('name')) . '%')
-            ->where('level', '<=', $request->query->get('level'))
+            ->where('level', '<=', $request->query->get('level') ?? 20)
             ->where('traits', 'LIKE', '%' . $trait . '%')
             ->get();
 
